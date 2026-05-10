@@ -1,0 +1,121 @@
+/* tokens.css — Analyst design system tokens.
+   Single source of truth for theme colours, fonts, glass overlay,
+   chart palette, and radii. Reused by index.html, workstation.html,
+   article.html, and any new page. Components only read tokens — never
+   hardcode colours.
+*/
+
+:root {
+  /* — Colour palette: Paper (default theme) — */
+  --bg-canvas: #fafaf7;
+  --bg-elevated: #ffffff;
+  --bg-illus: #efebe1;
+  --bg-band: #f1efe7;
+  --bg-category: #eeece4;
+  --text-body: #2c2c2c;
+  --text-muted: #6b6b6b;
+  --text-faint: #9a9a92;
+  --ink-primary: #1B365D;
+  --action: #111111;
+  --action-text: #ffffff;
+  --illus-accent: #c87637;
+  --border-soft: #e0ddd1;
+  --border-rule: #2c2c2c;
+
+  /* — Font stacks — */
+  --font-cn-serif: "Noto Serif SC", "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
+  --font-cn-sans: "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-en-serif: "Source Serif 4", Plantin, Georgia, serif;
+  --font-en-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+  --font-ui: var(--font-en-sans), var(--font-cn-sans);
+
+  /* — Reader sizing (workstation & article reading prefs) — */
+  --user-font-size: 16px;
+
+  /* — Radii (Monocle convention: rounded cards, sharp buttons/inputs) — */
+  --radius-card: 8px;
+  --radius-button: 0px;
+  --radius-input: 0px;
+
+  /* — Liquid glass overlay (workstation glass input, article selection pill) — */
+  --glass-bg: rgba(255, 255, 255, 0.32);
+  --glass-blur: blur(28px) saturate(180%);
+  --glass-border: rgba(27, 54, 93, 0.10);
+  --glass-shadow: 0 8px 32px rgba(27, 54, 93, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --glass-radius: 14px;
+  --glass-highlight: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+
+  /* — Chart line palette (workstation charts, themed by Plotly via CSS vars) — */
+  --c-line-1: var(--ink-primary);
+  --c-line-2: #6B8E9E;
+  --c-line-3: #C2A878;
+}
+
+[data-theme="sepia"] {
+  --bg-canvas: #f5f4ed;
+  --bg-elevated: #fbfaf3;
+  --bg-illus: #ece6d5;
+  --bg-band: #ebe7d8;
+  --bg-category: #e8e3d4;
+  --text-body: #33312a;
+  --text-muted: #7a7466;
+  --text-faint: #a8a294;
+  --illus-accent: #b06a2e;
+  --border-soft: #ddd8c8;
+  --border-rule: #33312a;
+  --c-line-2: #8a7e60;
+  --c-line-3: #a98050;
+}
+
+[data-theme="dark"] {
+  --bg-canvas: #1a1a1a;
+  --bg-elevated: #232323;
+  --bg-illus: #232323;
+  --bg-band: #1f1f1f;
+  --bg-category: #2a2a2a;
+  --text-body: #d8d3c8;
+  --text-muted: #9b9588;
+  --text-faint: #6b665d;
+  --ink-primary: #7BA3D9;
+  --action: #d8d3c8;
+  --action-text: #1a1a1a;
+  --illus-accent: #d4915a;
+  --border-soft: #2f2f2f;
+  --border-rule: #d8d3c8;
+  --glass-bg: rgba(40, 40, 40, 0.40);
+  --glass-blur: blur(28px) saturate(180%);
+  --glass-border: rgba(123, 163, 217, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --c-line-1: #7BA3D9;
+  --c-line-2: #C2A878;
+  --c-line-3: #B07AA1;
+}
+
+[data-theme="magazine"] {
+  --bg-canvas: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-illus: #f5f5f5;
+  --bg-band: #ffffff;
+  --bg-category: #64d5ff;
+  --text-body: #000000;
+  --text-muted: #6e6e6e;
+  --text-faint: #9b9b9b;
+  --ink-primary: #000000;
+  --action: #ffc500;
+  --action-text: #000000;
+  --illus-accent: #ffc500;
+  --border-soft: #cfcfcf;
+  --border-rule: #000000;
+  --font-cn-serif: "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-blur: blur(20px) saturate(160%);
+  --glass-border: rgba(0, 0, 0, 0.10);
+  --glass-shadow: 0 8px 28px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --glass-highlight: none;
+  --c-line-1: #000000;
+  --c-line-2: #ffc500;
+  --c-line-3: #64d5ff;
+}

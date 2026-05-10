@@ -7,97 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 
 <style>
-:root {
-  --bg-canvas: #fafaf7;
-  --bg-elevated: #ffffff;
-  --bg-category: #eeece4;
-  --text-body: #2c2c2c;
-  --text-muted: #666666;
-  --ink-primary: #1B365D;
-  --action: #1B365D;
-  --action-text: #ffffff;
-  --border-soft: #e8e6df;
-
-  --font-cn-serif: "Noto Serif SC", "LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, serif;
-  --font-cn-sans: "Noto Sans SC", "PingFang SC", sans-serif;
-  --font-en-serif: "Source Serif 4", Georgia, serif;
-  --font-en-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
-  --font-body: var(--font-en-serif), var(--font-cn-serif);
-  --font-ui: var(--font-en-sans), var(--font-cn-sans);
-
-  --user-font-size: 16px;
-  --radius-card: 8px;
-  --radius-button: 0px;
-  --radius-input: 0px;
-
-  --glass-bg: rgba(255,255,255,0.32);
-  --glass-blur: blur(28px) saturate(180%);
-  --glass-border: rgba(27,54,93,0.10);
-  --glass-shadow: 0 8px 32px rgba(27,54,93,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-  --glass-radius: 14px;
-  --glass-highlight: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
-
-  --c-line-1: var(--ink-primary);
-  --c-line-2: #6B8E9E;
-  --c-line-3: #C2A878;
-}
-
-[data-theme="sepia"] {
-  --bg-canvas: #f5f4ed;
-  --bg-elevated: #fbfaf3;
-  --bg-category: #e8e3d4;
-  --text-body: #33312a;
-  --text-muted: #7a7466;
-  --border-soft: #e0ddd1;
-  --c-line-2: #8a7e60;
-  --c-line-3: #a98050;
-}
-
-[data-theme="dark"] {
-  --bg-canvas: #1a1a1a;
-  --bg-elevated: #252525;
-  --bg-category: #2a2a2a;
-  --text-body: #d8d3c8;
-  --text-muted: #9b9588;
-  --ink-primary: #7BA3D9;
-  --action: #7BA3D9;
-  --action-text: #1a1a1a;
-  --border-soft: #3a3a3a;
-  --glass-bg: rgba(40,40,40,0.40);
-  --glass-blur: blur(28px) saturate(180%);
-  --glass-border: rgba(123,163,217,0.18);
-  --glass-shadow: 0 8px 32px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.08);
-  --c-line-1: #7BA3D9;
-  --c-line-2: #C2A878;
-  --c-line-3: #B07AA1;
-}
-
-[data-theme="magazine"] {
-  --bg-canvas: #ffffff;
-  --bg-elevated: #ffffff;
-  --bg-category: #64d5ff;
-  --text-body: #000000;
-  --text-muted: #6e6e6e;
-  --ink-primary: #000000;
-  --action: #ffc500;
-  --action-text: #000000;
-  --border-soft: #d9d9d9;
-  --font-cn-serif: "Noto Serif SC", serif;
-  --font-body: var(--font-en-serif), var(--font-cn-serif);
-  --glass-bg: rgba(255,255,255,0.45);
-  --glass-blur: blur(20px) saturate(160%);
-  --glass-border: rgba(0,0,0,0.10);
-  --glass-shadow: 0 8px 28px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
-  --glass-radius: 14px;
-  --glass-highlight: none;
-  --c-line-1: #000000;
-  --c-line-2: #ffc500;
-  --c-line-3: #64d5ff;
-}
-
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
 body {
