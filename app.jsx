@@ -86,16 +86,16 @@ function WorkflowStrip() {
     <>
       <header className="topbar">
         <div className="topbar-inner">
-          <a href="index.html" className="brand-mark">
+          <a href="/" className="brand-mark">
             <div className="brand-glyph"></div>
             <div className="brand-name">Analyst</div>
           </a>
           <nav className="primary-nav">
-            <a href="index.html">首页</a>
-            <a href="index.html#research">研报</a>
-            <a className="is-active" href="workstation.html">工作台</a>
-            <a href="index.html#authors">作者榜</a>
-            <a href="index.html#saved">收藏</a>
+            <a href="/">首页</a>
+            <a href="/#research">研报</a>
+            <a className="is-active" href="/workstation">工作台</a>
+            <a href="/#authors">作者榜</a>
+            <a href="/#saved">收藏</a>
           </nav>
         </div>
       </header>
