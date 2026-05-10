@@ -1,0 +1,6 @@
+node_modules/
+workstation-app/node_modules/
+workstation-app/dist/
+workstation-spa/
+.vercel/
+.DS_Store
