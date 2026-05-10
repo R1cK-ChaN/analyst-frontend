@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>Analyst · 社区共建研报平台</title>
+<title>Analyst · 策展型研究 Publication</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,40 +443,6 @@ img { max-width: 100%; display: block; }
 }
 .market-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
 
-/* ===== MOST READ ===== */
-.most-read { padding: 30px 0 40px; border-top: 2px solid var(--border-rule); }
-.most-read-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
-.most-read-col { display: flex; flex-direction: column; }
-.mr-item {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  gap: 16px;
-  align-items: center;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border-soft);
-}
-.mr-item:last-child { border-bottom: 0; }
-.mr-rank {
-  font-family: var(--font-en-serif);
-  font-size: 32px; font-weight: 700;
-  color: var(--ink-primary);
-  letter-spacing: -0.02em; line-height: 1;
-}
-[data-theme="magazine"] .mr-rank { color: var(--text-body); }
-.mr-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.mr-title {
-  font-family: var(--font-body);
-  font-size: 16px; font-weight: 600;
-  line-height: 1.25; letter-spacing: -0.005em;
-  margin: 0;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-.mr-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
-.mr-saves { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-
 /* ===== ANALYST WALL — line-portrait cards ===== */
 .authors { padding: 0 0 48px; }
 .authors-intro {
@@ -658,7 +624,6 @@ img { max-width: 100%; display: block; }
   .macro-grid { grid-template-columns: 1fr; }
   .picks-grid { grid-template-columns: 1fr; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
-  .most-read-grid { grid-template-columns: 1fr; }
   .authors-grid { grid-template-columns: repeat(2, 1fr); }
   .authors-intro { grid-template-columns: 1fr; gap: 12px; }
   .subscribe-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -1070,8 +1035,6 @@ img { max-width: 100%; display: block; }
         <span>14 min read</span>
         <span class="pipe">·</span>
         <span class="mono" style="font-size:11px;">2026-05-10 · v3 · 3 charts · 2 tables</span>
-        <span class="pipe">·</span>
-        <span>1,247 ★</span>
       </div>
     </article>
 
@@ -1083,7 +1046,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>衍生品</span></div>
         <h3 class="hero-side-title">9 月 FOMC 会前的期权定价:市场如何押注非对称风险</h3>
-        <div class="hero-side-meta">苏明哲 · 9 min · 612 ★</div>
+        <div class="hero-side-meta">苏明哲 · 9 min</div>
       </div>
       <div class="hero-side-item">
         <div class="hero-side-img illus">
@@ -1092,7 +1055,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>大宗商品</span></div>
         <h3 class="hero-side-title">黄金 4,200 关口:实际利率与央行配置的两条曲线</h3>
-        <div class="hero-side-meta">周愈 · 11 min · 488 ★</div>
+        <div class="hero-side-meta">周愈 · 11 min</div>
       </div>
     </aside>
   </section>
@@ -1182,7 +1145,7 @@ img { max-width: 100%; display: block; }
         <div class="eyebrow"><span>宏观</span><span class="dot"></span><span>特稿</span></div>
         <h2 class="macro-headline">美联储路径定价:市场已跑在点阵图前面 35bp</h2>
         <p class="macro-dek">SOFR 期货曲线 vs. 3 月点阵图,2026 年末隐含利率比 FOMC 中位数低 35bp;若 9 月维持暂停,市场或反向定价 25bp 反弹,期限溢价二阶导反转。</p>
-        <div class="hero-side-meta">林知衡 · 18 min · 9 charts · 2,107 ★</div>
+        <div class="hero-side-meta">林知衡 · 18 min · 9 charts</div>
       </article>
 
       <div class="macro-list">
@@ -1191,7 +1154,7 @@ img { max-width: 100%; display: block; }
           <div class="macro-item-body">
             <div class="eyebrow"><span>通胀</span></div>
             <h3 class="macro-item-title">核心 PCE vs 核心 CPI:口径分歧的归因与 9 月窗口</h3>
-            <div class="macro-item-meta">林知衡 · 11 min · 894 ★</div>
+            <div class="macro-item-meta">林知衡 · 11 min</div>
           </div>
         </article>
         <article class="macro-item">
@@ -1199,7 +1162,7 @@ img { max-width: 100%; display: block; }
           <div class="macro-item-body">
             <div class="eyebrow"><span>大宗商品</span></div>
             <h3 class="macro-item-title">供给弹性与商品反通胀:站在 2026 年中视角再看一次铜</h3>
-            <div class="macro-item-meta">周愈 · 13 min · 721 ★</div>
+            <div class="macro-item-meta">周愈 · 13 min</div>
           </div>
         </article>
         <article class="macro-item">
@@ -1207,7 +1170,7 @@ img { max-width: 100%; display: block; }
           <div class="macro-item-body">
             <div class="eyebrow"><span>中国 · PMI</span></div>
             <h3 class="macro-item-title">中国 4 月 PMI:出口订单与价格指数背离,内需修复滞后于外需</h3>
-            <div class="macro-item-meta">陆问渠 · 9 min · 612 ★</div>
+            <div class="macro-item-meta">陆问渠 · 9 min</div>
           </div>
         </article>
         <article class="macro-item">
@@ -1215,7 +1178,7 @@ img { max-width: 100%; display: block; }
           <div class="macro-item-body">
             <div class="eyebrow"><span>欧元区</span></div>
             <h3 class="macro-item-title">欧元区核心服务通胀:工资-价格螺旋的"半截梯子"</h3>
-            <div class="macro-item-meta">Marie Sá · 10 min · 437 ★</div>
+            <div class="macro-item-meta">Marie Sá · 10 min</div>
           </div>
         </article>
       </div>
@@ -1241,7 +1204,7 @@ img { max-width: 100%; display: block; }
           <div class="eyebrow"><span>风险 · 重读</span></div>
           <h3 class="pick-title">为什么我们重读《长期资本》:风险预算的迭代与失败的家学</h3>
           <p class="pick-snippet">从 LTCM 的 leverage table 到 2026 年的 vol-targeting 策略,"风险即可逆"的隐喻经过两次定量危机才被收敛进合规语言。</p>
-          <div class="hero-side-meta">陈砚秋 · 19 min · 1,089 ★</div>
+          <div class="hero-side-meta">陈砚秋 · 19 min</div>
         </div>
       </article>
       <article class="pick-item">
@@ -1252,7 +1215,7 @@ img { max-width: 100%; display: block; }
           <div class="eyebrow"><span>大宗商品</span></div>
           <h3 class="pick-title">稀有金属投资框架:从地理风险到回收链的三层穿透</h3>
           <p class="pick-snippet">把 Cu / Co / Li / Nd 拆解到矿权-冶炼-回收三层,2026 年回收链已能覆盖增量 12%,这是定价分位的关键变量。</p>
-          <div class="hero-side-meta">周愈 · 16 min · 824 ★</div>
+          <div class="hero-side-meta">周愈 · 16 min</div>
         </div>
       </article>
       <article class="pick-item">
@@ -1263,7 +1226,7 @@ img { max-width: 100%; display: block; }
           <div class="eyebrow"><span>金融科技</span></div>
           <h3 class="pick-title">Stripe 估值 1,000 亿:支付基础设施进入下半场</h3>
           <p class="pick-snippet">单位经济性已经稳定,真正决定二级市场打开的是 Treasury / Capital 这两条非交易性收入线的复合速度。</p>
-          <div class="hero-side-meta">叶之初 · 14 min · 968 ★</div>
+          <div class="hero-side-meta">叶之初 · 14 min</div>
         </div>
       </article>
       <article class="pick-item">
@@ -1274,7 +1237,7 @@ img { max-width: 100%; display: block; }
           <div class="eyebrow"><span>AI · 成本曲线</span></div>
           <h3 class="pick-title">AI 推理成本的拐点:从 Token 价格看产业杠杆与利润迁移</h3>
           <p class="pick-snippet">推理单价 18 个月下降 11×,但应用层毛利率仅扩张 3pp;杠杆迁移到了客户侧的延迟和上下文窗口溢价。</p>
-          <div class="hero-side-meta">叶之初 · 13 min · 1,512 ★</div>
+          <div class="hero-side-meta">叶之初 · 13 min</div>
         </div>
       </article>
     </div>
@@ -1297,7 +1260,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>美股权益</span></div>
         <h3 class="market-title">纳指最新业绩季:超大盘股的现金流分化在加深</h3>
-        <div class="market-meta">叶之初 · 10 min · 612 ★</div>
+        <div class="market-meta">叶之初 · 10 min</div>
       </article>
       <article class="market-card">
         <div class="market-img illus">
@@ -1305,7 +1268,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>利率</span></div>
         <h3 class="market-title">国债收益率曲线倒挂解除后,资产再定价的次序与时滞</h3>
-        <div class="market-meta">林知衡 · 14 min · 738 ★</div>
+        <div class="market-meta">林知衡 · 14 min</div>
       </article>
       <article class="market-card">
         <div class="market-img illus">
@@ -1313,7 +1276,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>加密资产</span></div>
         <h3 class="market-title">比特币 6 万美元支撑测试:现货 ETF 的资金流向分层</h3>
-        <div class="market-meta">Aria Wen · 9 min · 421 ★</div>
+        <div class="market-meta">Aria Wen · 9 min</div>
       </article>
       <article class="market-card">
         <div class="market-img illus">
@@ -1321,83 +1284,15 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="eyebrow"><span>能源</span></div>
         <h3 class="market-title">原油 75–90 区间内的期权策略:卖跨与日历价差的胜率比较</h3>
-        <div class="market-meta">苏明哲 · 11 min · 366 ★</div>
+        <div class="market-meta">苏明哲 · 11 min</div>
       </article>
     </div>
   </section>
 
-  <!-- ===================== § 4  MOST READ ===================== -->
-  <div class="cat-band">
-    <div class="band-l">
-      <span class="band-num">§ 04</span>
-      <span class="band-name">热度榜</span>
-    </div>
-    <span class="band-r">滚动 7 天 · 加权 = ★×1 + 收藏×2 + 完读×1.5</span>
-  </div>
-
-  <section class="most-read">
-    <div class="most-read-grid">
-      <div class="most-read-col">
-        <article class="mr-item">
-          <span class="mr-rank">01</span>
-          <div class="mr-body"><h3 class="mr-title">美国 4 月 CPI 解构:核心服务粘性与租金传导</h3><div class="mr-meta">林知衡 · 宏观</div></div>
-          <span class="mr-saves">★ 1,247</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">02</span>
-          <div class="mr-body"><h3 class="mr-title">AI 推理成本的拐点:从 Token 价格看产业杠杆</h3><div class="mr-meta">叶之初 · 科技</div></div>
-          <span class="mr-saves">★ 1,512</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">03</span>
-          <div class="mr-body"><h3 class="mr-title">为什么我们重读《长期资本》:风险预算的迭代</h3><div class="mr-meta">陈砚秋 · 风险</div></div>
-          <span class="mr-saves">★ 1,089</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">04</span>
-          <div class="mr-body"><h3 class="mr-title">Stripe 估值 1,000 亿:支付基础设施进入下半场</h3><div class="mr-meta">叶之初 · 金融科技</div></div>
-          <span class="mr-saves">★ 968</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">05</span>
-          <div class="mr-body"><h3 class="mr-title">9 月 FOMC 会前的期权定价:押注非对称风险</h3><div class="mr-meta">苏明哲 · 衍生品</div></div>
-          <span class="mr-saves">★ 902</span>
-        </article>
-      </div>
-      <div class="most-read-col">
-        <article class="mr-item">
-          <span class="mr-rank">06</span>
-          <div class="mr-body"><h3 class="mr-title">稀有金属投资框架:从地理风险到回收链</h3><div class="mr-meta">周愈 · 大宗商品</div></div>
-          <span class="mr-saves">★ 824</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">07</span>
-          <div class="mr-body"><h3 class="mr-title">国债收益率曲线倒挂解除后的资产再定价</h3><div class="mr-meta">林知衡 · 利率</div></div>
-          <span class="mr-saves">★ 738</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">08</span>
-          <div class="mr-body"><h3 class="mr-title">日央行 7 月加息路径回测:汇率传导与隐含通胀</h3><div class="mr-meta">高原裕 · 日本</div></div>
-          <span class="mr-saves">★ 689</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">09</span>
-          <div class="mr-body"><h3 class="mr-title">黄金 4,200 关口:实际利率与央行配置的两条曲线</h3><div class="mr-meta">周愈 · Gold</div></div>
-          <span class="mr-saves">★ 488</span>
-        </article>
-        <article class="mr-item">
-          <span class="mr-rank">10</span>
-          <div class="mr-body"><h3 class="mr-title">上证 50ETF 沽购比创年内新高:信号还是噪音?</h3><div class="mr-meta">陆问渠 · 中国</div></div>
-          <span class="mr-saves">★ 412</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== § 5  ANALYST WALL ===================== -->
+  <!-- ===================== § 4  ANALYST WALL ===================== -->
   <div class="cat-band" id="authors">
     <div class="band-l">
-      <span class="band-num">§ 05</span>
+      <span class="band-num">§ 04</span>
       <span class="band-name">签约作者 · Meet our analysts</span>
     </div>
     <span class="band-r">本月新增 4 位 · 当前共 23 位</span>
@@ -1426,8 +1321,8 @@ img { max-width: 100%; display: block; }
         <p class="author-quote">"通胀回到 2% 是一段下坡路,但下坡有几段不同的坡度。"</p>
         <div class="author-stats">
           <div><span class="num">12</span>精选</div>
-          <div><span class="num">5,108</span>★</div>
-          <div><span class="num">52%</span>完读</div>
+          <div><span class="num">1,420</span>订阅</div>
+          <div><span class="num">2025.03</span>加入</div>
         </div>
       </article>
 
@@ -1443,8 +1338,8 @@ img { max-width: 100%; display: block; }
         <p class="author-quote">"波动率定价从来不是预测,是交易非对称的风险溢价。"</p>
         <div class="author-stats">
           <div><span class="num">8</span>精选</div>
-          <div><span class="num">3,221</span>★</div>
-          <div><span class="num">48%</span>完读</div>
+          <div><span class="num">893</span>订阅</div>
+          <div><span class="num">2025.06</span>加入</div>
         </div>
       </article>
 
@@ -1460,8 +1355,8 @@ img { max-width: 100%; display: block; }
         <p class="author-quote">"产业链分层比基本面更早出现拐点 — 它通常领先两个季度。"</p>
         <div class="author-stats">
           <div><span class="num">6</span>精选</div>
-          <div><span class="num">2,455</span>★</div>
-          <div><span class="num">44%</span>完读</div>
+          <div><span class="num">712</span>订阅</div>
+          <div><span class="num">2025.09</span>加入</div>
         </div>
       </article>
 
@@ -1477,8 +1372,8 @@ img { max-width: 100%; display: block; }
         <p class="author-quote">"链上数据是开放的,但读它的人远少于交易它的人。"</p>
         <div class="author-stats">
           <div><span class="num">9</span>精选</div>
-          <div><span class="num">2,938</span>★</div>
-          <div><span class="num">41%</span>完读</div>
+          <div><span class="num">845</span>订阅</div>
+          <div><span class="num">2025.05</span>加入</div>
         </div>
       </article>
     </div>
@@ -1511,11 +1406,11 @@ img { max-width: 100%; display: block; }
         <div class="brand-glyph" style="width:18px;height:18px;"></div>
         <div class="footer-brand-name">Analyst</div>
       </div>
-      <p class="footer-tag">由社区共建、编辑策展的研报平台。 用 agent 写、用同行评、被编辑挑。</p>
+      <p class="footer-tag">AI 研究案桌 + 策展型 Publication · 工具层开放、发布层邀请制</p>
     </div>
     <div class="footer-col">
       <h4>Read</h4>
-      <ul><li><a href="#">最新研报</a></li><li><a href="#">编辑精选</a></li><li><a href="#">热度榜</a></li><li><a href="#">分类目录</a></li></ul>
+      <ul><li><a href="#">最新研报</a></li><li><a href="#">编辑精选</a></li><li><a href="#">分类目录</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Create</h4>
