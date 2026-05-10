@@ -519,11 +519,22 @@ function App() {
   const initialTheme = (() => {
     try { return localStorage.getItem("mx_theme") || "paper"; } catch (e) { return "paper"; }
   })();
-  const t = { theme: initialTheme, fontSize: 16, density: "compact", showSelectionDemo: true };
+  // Consume context handed off from article.html selection pill:
+  //   /workstation?from=article&act=improve|explain|cmd&q=<snippet>
+  const initialChips = (() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("from") !== "article") return [];
+      const q = (params.get("q") || "").trim();
+      if (!q) return [];
+      return [{ blockId: "article", text: q.length > 60 ? q.slice(0, 60) + "…" : q }];
+    } catch (e) { return []; }
+  })();
+  const t = { theme: initialTheme, fontSize: 16, density: "compact", showSelectionDemo: initialChips.length === 0 };
   const [doc] = useState(INITIAL_DOC);
   const [chat, setChat] = useState(INITIAL_CHAT);
   const [sel, setSel] = useState(null);
-  const [chips, setChips] = useState([]);
+  const [chips, setChips] = useState(initialChips);
   const [suggesting, setSuggesting] = useState("");
   const [leftCollapsed, setLeftCollapsed] = useState(false);
   const [rightCollapsed, setRightCollapsed] = useState(false);

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>美国 4 月 CPI 解构 · 林知衡 · Analyst</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-canvas: #fafaf7;
+  --bg-elevated: #ffffff;
+  --bg-illus: #efebe1;
+  --bg-band: #f1efe7;
+  --text-body: #2c2c2c;
+  --text-muted: #6b6b6b;
+  --text-faint: #9a9a92;
+  --ink-primary: #1B365D;
+  --action: #111111;
+  --action-text: #ffffff;
+  --illus-accent: #c87637;
+  --border-soft: #e0ddd1;
+  --border-rule: #2c2c2c;
+
+  --font-cn-serif: "Noto Serif SC", "Kaiti SC", STKaiti, KaiTi, serif;
+  --font-cn-sans: "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-en-serif: "Source Serif 4", Plantin, Georgia, serif;
+  --font-en-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+  --font-ui: var(--font-en-sans), var(--font-cn-sans);
+
+  --reader-font-family: var(--font-body);
+  --reader-font-size: 17px;
+  --reader-line-height: 1.7;
+}
+
+[data-theme="sepia"] {
+  --bg-canvas: #f5f4ed;
+  --bg-elevated: #fbfaf3;
+  --bg-illus: #ece6d5;
+  --bg-band: #ebe7d8;
+  --text-body: #33312a;
+  --text-muted: #7a7466;
+  --text-faint: #a8a294;
+  --illus-accent: #b06a2e;
+  --border-soft: #ddd8c8;
+  --border-rule: #33312a;
+}
+[data-theme="dark"] {
+  --bg-canvas: #1a1a1a;
+  --bg-elevated: #232323;
+  --bg-illus: #232323;
+  --bg-band: #1f1f1f;
+  --text-body: #d8d3c8;
+  --text-muted: #9b9588;
+  --text-faint: #6b665d;
+  --ink-primary: #7BA3D9;
+  --action: #d8d3c8;
+  --action-text: #1a1a1a;
+  --illus-accent: #d4915a;
+  --border-soft: #2f2f2f;
+  --border-rule: #d8d3c8;
+}
+[data-theme="magazine"] {
+  --bg-canvas: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-illus: #f5f5f5;
+  --bg-band: #ffffff;
+  --text-body: #000000;
+  --text-muted: #6e6e6e;
+  --text-faint: #9b9b9b;
+  --ink-primary: #000000;
+  --action: #ffc500;
+  --action-text: #000000;
+  --illus-accent: #ffc500;
+  --border-soft: #cfcfcf;
+  --border-rule: #000000;
+  --font-cn-serif: "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg-canvas);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ===== TOP NAV (matches index.html) ===== */
+.topbar { border-bottom: 2px solid var(--border-rule); background: var(--bg-canvas); }
+.topbar-inner {
+  max-width: 1296px; margin: 0 auto; padding: 18px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.brand-mark { display: inline-flex; align-items: center; gap: 12px; }
+.brand-glyph { width: 22px; height: 22px; background: var(--ink-primary); transform: rotate(45deg); }
+[data-theme="magazine"] .brand-glyph { background: var(--text-body); }
+.brand-name { font-family: var(--font-en-serif); font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+.primary-nav { display: flex; gap: 32px; font-family: var(--font-ui); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; }
+.primary-nav a { position: relative; padding: 6px 0; }
+
+.subnav {
+  max-width: 1296px; margin: 0 auto; padding: 10px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--text-muted); border-bottom: 1px solid var(--border-soft);
+}
+.subnav-cats { display: flex; gap: 20px; }
+
+/* ===== ARTICLE SHELL — 3-col layout ===== */
+.article-shell {
+  max-width: 1296px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 60px;
+  gap: 48px;
+  padding: 40px 32px 80px;
+}
+
+/* TOC sidebar */
+.article-toc {
+  position: sticky; top: 32px;
+  align-self: start;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  font-family: var(--font-ui);
+}
+.article-toc-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-primary);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-rule);
+  margin-bottom: 14px;
+}
+.article-toc ol { list-style: none; padding: 0; margin: 0; }
+.article-toc li { padding: 7px 0; border-bottom: 1px solid var(--border-soft); }
+.article-toc li:last-child { border-bottom: 0; }
+.article-toc li.is-h3 { padding-left: 14px; }
+.article-toc a {
+  display: block;
+  font-size: 13px; line-height: 1.4;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+.article-toc a:hover, .article-toc a.is-active { color: var(--ink-primary); }
+.article-toc-num {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-faint);
+  margin-right: 6px;
+}
+
+/* Main column */
+.article-main { max-width: 720px; margin: 0 auto; width: 100%; }
+
+.article-head {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--border-rule);
+}
+.article-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-primary);
+  margin-bottom: 14px;
+}
+.article-eyebrow .dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: currentColor; margin: 0 8px 2px; vertical-align: middle; opacity: 0.7; }
+.article-title {
+  font-family: var(--font-body);
+  font-size: 44px; font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+.article-dek {
+  font-family: var(--font-body);
+  font-size: 19px; line-height: 1.45;
+  color: var(--text-muted);
+  margin: 0 0 28px;
+  max-width: 56ch;
+}
+
+.article-byline {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 14px;
+}
+.byline-portrait {
+  width: 48px; height: 48px;
+  background: var(--bg-illus);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.byline-portrait svg { width: 78%; height: 78%; }
+.byline-name {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.byline-tag { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; margin-top: 1px; }
+
+.article-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--text-muted);
+}
+.article-meta .pipe { color: var(--text-faint); }
+
+/* ===== ARTICLE BODY (reader-controlled typography) ===== */
+.article-body {
+  font-family: var(--reader-font-family);
+  font-size: var(--reader-font-size);
+  line-height: var(--reader-line-height);
+  color: var(--text-body);
+}
+.article-body h2 {
+  font-family: var(--font-body);
+  font-size: 28px; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.012em;
+  margin: 48px 0 16px;
+  scroll-margin-top: 32px;
+}
+.article-body h3 {
+  font-family: var(--font-body);
+  font-size: 20px; font-weight: 700;
+  line-height: 1.25; letter-spacing: -0.005em;
+  margin: 32px 0 12px;
+  scroll-margin-top: 32px;
+}
+.article-body p {
+  margin: 0 0 18px;
+  text-wrap: pretty;
+}
+.article-body blockquote {
+  margin: 24px 0;
+  padding: 4px 0 4px 18px;
+  border-left: 2px solid var(--ink-primary);
+  font-style: italic;
+  color: var(--text-muted);
+}
+.article-body em { font-style: italic; }
+.article-body strong { font-weight: 600; }
+.article-body a {
+  border-bottom: 1px solid var(--ink-primary);
+  color: var(--ink-primary);
+}
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-band);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+::selection { background: color-mix(in oklab, var(--ink-primary) 25%, transparent); }
+[data-theme="magazine"] ::selection { background: var(--action); color: #000; }
+
+/* ===== CHART PLACEHOLDERS ===== */
+.article-chart {
+  margin: 36px 0;
+  background: var(--bg-canvas);
+}
+.article-chart-svg {
+  width: 100%;
+  display: block;
+}
+.article-chart-cap {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: baseline;
+  font-family: var(--font-ui); font-size: 12px; color: var(--text-muted);
+  padding: 12px 0 0;
+  border-top: 1px solid var(--border-soft);
+}
+.cap-num { font-family: var(--font-mono); font-weight: 600; color: var(--ink-primary); }
+[data-theme="magazine"] .cap-num { color: var(--text-body); background: var(--action); padding: 1px 6px; }
+.cap-title { font-weight: 600; color: var(--text-body); flex: 1; min-width: 200px; }
+.cap-src { font-family: var(--font-mono); font-size: 11px; }
+
+.ch-axis { stroke: var(--text-muted); stroke-width: 1; fill: none; }
+.ch-grid { stroke: var(--border-soft); stroke-width: 1; stroke-dasharray: 2 4; fill: none; }
+.ch-tick { fill: var(--text-muted); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+.ch-line-1 { fill: none; stroke: var(--ink-primary); stroke-width: 2; }
+.ch-line-2 { fill: none; stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 4 3; }
+.ch-dot { fill: var(--illus-accent); stroke: var(--bg-canvas); stroke-width: 2; }
+
+/* ===== ACTIONS RAIL (right) ===== */
+.article-actions {
+  position: sticky; top: 32px;
+  align-self: start;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.action-btn {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-faint);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  border-radius: 50%;
+}
+[data-theme="magazine"] .action-btn { border-radius: 0; }
+.action-btn:hover, .action-btn.is-active {
+  color: var(--ink-primary);
+  border-color: var(--ink-primary);
+  background: var(--bg-elevated);
+}
+.action-btn-label {
+  position: absolute; right: 48px;
+  white-space: nowrap;
+  font-family: var(--font-ui); font-size: 11px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  padding: 3px 8px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s;
+}
+.action-btn:hover .action-btn-label { opacity: 1; }
+
+/* ===== READING-PREFS PANEL ===== */
+.reading-prefs {
+  position: fixed;
+  right: 24px; top: 96px;
+  width: 280px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-rule);
+  z-index: 50;
+  font-family: var(--font-ui);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+[data-theme="magazine"] .reading-prefs { box-shadow: 0 4px 0 rgba(0,0,0,0.10); }
+.reading-prefs[hidden] { display: none; }
+.rp-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.rp-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.rp-close {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 18px; line-height: 1; padding: 0;
+}
+.rp-section { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+.rp-section:last-child { border-bottom: 0; }
+.rp-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.rp-row { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--border-soft); }
+.rp-opt {
+  flex: 1; min-width: 0;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border-soft);
+  padding: 7px 6px;
+  cursor: pointer;
+  font: inherit; font-size: 12px;
+  color: var(--text-body);
+  text-align: center;
+  white-space: nowrap;
+}
+.rp-opt:last-child { border-right: none; }
+.rp-opt.is-on {
+  background: var(--ink-primary);
+  color: var(--action-text);
+}
+[data-theme="magazine"] .rp-opt.is-on { background: var(--action); color: var(--text-body); }
+
+/* ===== SELECTION PILL (mini glass) ===== */
+.sel-pill {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 8px));
+  display: inline-flex; align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--ink-primary) 18%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  padding: 3px;
+  font-family: var(--font-ui); font-size: 12px;
+  z-index: 60;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s;
+}
+.sel-pill.is-visible { opacity: 1; pointer-events: auto; }
+[data-theme="dark"] .sel-pill { background: rgba(40, 40, 40, 0.7); }
+[data-theme="magazine"] .sel-pill { border-radius: 0; border: 1px solid var(--text-body); background: rgba(255,255,255,0.92); }
+.sel-pill button {
+  background: transparent; border: none;
+  padding: 5px 12px; color: var(--text-body);
+  font: inherit;
+  border-radius: 999px;
+  cursor: pointer;
+}
+[data-theme="magazine"] .sel-pill button { border-radius: 0; }
+.sel-pill button:hover { background: color-mix(in oklab, var(--ink-primary) 15%, transparent); }
+.sel-pill .sel-sep { width: 1px; height: 14px; background: var(--border-soft); }
+
+/* ===== END SECTIONS ===== */
+.article-end { margin-top: 56px; padding-top: 24px; border-top: 2px solid var(--border-rule); }
+
+.disclosure {
+  font-family: var(--font-ui);
+  font-size: 12px; line-height: 1.6;
+  color: var(--text-muted);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.disclosure h3 {
+  font-family: var(--font-ui);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-body);
+  margin: 0 0 8px;
+}
+
+.related { padding: 28px 0 18px; border-bottom: 1px solid var(--border-soft); }
+.related-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 18px;
+}
+.related-h3 {
+  font-family: var(--font-body);
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.related-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.related-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+.related-cat {
+  font-family: var(--font-ui);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.related-title {
+  font-family: var(--font-body);
+  font-size: 17px; font-weight: 600;
+  line-height: 1.25; letter-spacing: -0.005em;
+  margin: 0;
+}
+.related-meta-line { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+.follow {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px;
+  padding: 28px 0 8px;
+}
+.follow-l { display: flex; align-items: center; gap: 14px; }
+.follow-portrait { width: 44px; height: 44px; background: var(--bg-illus); display: grid; place-items: center; }
+.follow-portrait svg { width: 78%; height: 78%; }
+.follow-name { font-family: var(--font-body); font-size: 16px; font-weight: 600; }
+.follow-line { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); }
+.follow-btn {
+  background: var(--action); color: var(--action-text);
+  border: 1px solid var(--action);
+  padding: 12px 22px;
+  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .article-shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 32px 24px 64px;
+  }
+  .article-toc { display: none; }
+  .article-actions {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    top: auto;
+    flex-direction: row;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    padding: 4px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .reading-prefs { right: 12px; top: auto; bottom: 64px; }
+  .related-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .article-title { font-size: 32px; }
+  .article-dek { font-size: 17px; }
+  .article-body h2 { font-size: 24px; }
+}
+</style>
+</head>
+<body data-theme="paper">
+
+<!-- Portrait library (line-art, line-portrait style matching index.html) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="port-lin" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <ellipse cx="50" cy="44" rx="20" ry="24"/>
+        <path d="M30 32 Q42 20 50 21 Q60 21 70 32"/>
+        <path d="M36 28 L44 22"/>
+        <path d="M50 26 L58 20"/>
+        <circle cx="42" cy="46" r="5"/>
+        <circle cx="58" cy="46" r="5"/>
+        <line x1="47" y1="46" x2="53" y2="46"/>
+        <path d="M46 58 Q50 60 54 58"/>
+        <path d="M22 95 Q24 76 50 70 Q76 76 78 95"/>
+        <path d="M44 72 L50 84 L56 72"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===================== TOP NAV ===================== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="brand-mark">
+      <div class="brand-glyph"></div>
+      <div class="brand-name">Analyst</div>
+    </a>
+    <nav class="primary-nav">
+      <a href="/">首页</a>
+      <a href="/#research">研报</a>
+      <a href="/workstation">工作台</a>
+      <a href="/#authors">作者榜</a>
+      <a href="/#saved">收藏</a>
+    </nav>
+  </div>
+</header>
+<div class="subnav">
+  <div class="subnav-cats">
+    <a href="#">宏观</a>
+    <a href="#">权益</a>
+    <a href="#">衍生品</a>
+    <a href="#">固收</a>
+    <a href="#">加密资产</a>
+    <a href="#">大宗商品</a>
+  </div>
+  <div>10 May 2026 · v3</div>
+</div>
+
+<!-- ===================== ARTICLE ===================== -->
+<div class="article-shell">
+
+  <aside class="article-toc" id="toc" aria-label="本篇目录">
+    <div class="article-toc-eyebrow">本篇目录</div>
+    <ol id="toc-list"></ol>
+  </aside>
+
+  <main class="article-main">
+    <article>
+
+      <header class="article-head">
+        <div class="article-eyebrow">
+          <span>宏观</span><span class="dot"></span>
+          <span>通胀</span><span class="dot"></span>
+          <span>本周精选</span>
+        </div>
+        <h1 class="article-title">美国 4 月 CPI 解构:核心服务粘性与租金传导的最后一里</h1>
+        <p class="article-dek">把核心服务通胀拆成 OER + 保险 + 其余三段后,7 月以前回到 4% 以内仍是基线;OER 对 Zillow 滞后 11–13 个月,机动车保险则在 9 月之后才进入低基数,这两条决定 9 月 FOMC 的边际选项。</p>
+
+        <div class="article-byline">
+          <div class="byline-portrait"><svg viewBox="0 0 100 100"><use href="#port-lin"/></svg></div>
+          <div>
+            <div class="byline-name">林知衡</div>
+            <div class="byline-tag">前 Fed-watcher · 拆 BLS 报告八年 · 签约作者</div>
+          </div>
+        </div>
+        <div class="article-meta">
+          <span>2026.05.10</span>
+          <span class="pipe">·</span>
+          <span>v3 · 已通过双人复核</span>
+          <span class="pipe">·</span>
+          <span>8,420 字</span>
+          <span class="pipe">·</span>
+          <span>14 min read</span>
+          <span class="pipe">·</span>
+          <span>2 charts</span>
+        </div>
+      </header>
+
+      <section class="article-body" id="article-body">
+
+        <h2 id="executive-summary">Executive Summary</h2>
+        <p>美国 4 月 CPI 同比 3.4%,环比 0.31%,连续第三个月低于市场一致预期。核心商品继续通缩,而核心服务粘性主要来自业主等价租金(OER)与机动车保险两条线。本期我们用拆分模型把通胀回归到「房租 + 保险 + 其余」三段,量化每条对联储 9 月会议表态的边际影响。</p>
+        <p>主要结论有三:第一,在不出现新的供应链冲击的情况下,核心服务通胀在 7 月以前回到 4% 以内仍是基线;第二,OER 对 Zillow 月度租金序列的滞后是 11–13 个月,因此 OER 真正的低点在 2026 Q3,5–6 月不会有惊喜;第三,机动车保险只有等到 9 月之后进入低基数,9 月 FOMC 之前可见性极差。<strong>这两条决定 9 月会议的边际选项</strong>。</p>
+
+        <h2 id="core-factors">1. 核心因素拆解</h2>
+        <p>把 CPI 同比拆为商品、住房、其余服务三段后可见:住房贡献 1.6 个百分点,仍占核心 CPI 同比的近一半;其余服务 1.0 个百分点,环比开始走平;核心商品已在零附近徘徊四个月。这一结构与 2024 年下半年的回落轨迹一致,但住房项的回落速度低于多数模型预期,这就是 OER 滞后这一旧问题的最新版本。</p>
+
+        <figure class="article-chart" id="chart-1">
+          <svg class="article-chart-svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" aria-label="Chart 1: Core CPI YoY contribution decomposition">
+            <!-- axes & gridlines -->
+            <line x1="56" y1="220" x2="700" y2="220" class="ch-axis"/>
+            <line x1="56" y1="40" x2="56" y2="220" class="ch-axis"/>
+            <line x1="56" y1="80" x2="700" y2="80" class="ch-grid"/>
+            <line x1="56" y1="120" x2="700" y2="120" class="ch-grid"/>
+            <line x1="56" y1="160" x2="700" y2="160" class="ch-grid"/>
+            <text x="50" y="84" class="ch-tick" text-anchor="end">6%</text>
+            <text x="50" y="124" class="ch-tick" text-anchor="end">4%</text>
+            <text x="50" y="164" class="ch-tick" text-anchor="end">2%</text>
+            <text x="50" y="224" class="ch-tick" text-anchor="end">0</text>
+            <!-- x ticks -->
+            <text x="80" y="240" class="ch-tick">2024 Q1</text>
+            <text x="240" y="240" class="ch-tick">Q3</text>
+            <text x="400" y="240" class="ch-tick">2025 Q1</text>
+            <text x="560" y="240" class="ch-tick">Q3</text>
+            <text x="675" y="240" class="ch-tick">26 Q1</text>
+            <!-- core CPI line -->
+            <path class="ch-line-1" d="M80 70 L160 80 L240 100 L320 120 L400 130 L480 140 L560 150 L640 160 L700 168"/>
+            <!-- model fit (dashed) -->
+            <path class="ch-line-2" d="M80 76 L160 88 L240 105 L320 122 L400 130 L480 138 L560 145 L640 152 L700 156"/>
+            <!-- annotation dot — OER inflection -->
+            <circle cx="480" cy="140" r="4" class="ch-dot"/>
+            <text x="488" y="134" class="ch-tick" font-style="italic">OER 拐点</text>
+          </svg>
+          <figcaption class="article-chart-cap">
+            <span class="cap-num">Chart 1 · line</span>
+            <span class="cap-title">美国核心 CPI 同比贡献分解 · 2023 Q4 – 2026 Q1</span>
+            <span class="cap-src">Source: BLS, FRED · 单位 %</span>
+          </figcaption>
+        </figure>
+
+        <p>OER 滞后市场租金约 11–13 个月,按 Zillow 与 ApartmentList 序列推算,OER 同比将在 2026 Q3 前回到 4% 以内,但很难单凭这一项把核心 CPI 拉回 2%。换句话说:<strong>OER 在做减法,但减得不够快</strong>。这条线的关键风险是新房建设的二阶滞后,如果 2025 Q4 的新房建竣速度低于历史中位 0.5 个标准差,OER 的回落会被再延后两个季度。</p>
+
+        <h3 id="oer-deep-dive">1.1 OER 的两条独立子序列</h3>
+        <p>把 OER 进一步拆为「单户(SFR)」与「公寓」两段时,公寓侧已经领先回落,2025 Q3 同比回到 3.6%,而 SFR 侧仍粘在 5.2% 附近。Zillow 的两条子序列对应分别滞后 9 个月和 14 个月,因此<em>读者关心的真正问题</em>是 SFR 侧的低基数何时到来——按当前路径,2026 年 8 月。</p>
+
+        <h2 id="vol-surface">2. 期权市场如何定价 9 月会议</h2>
+        <p>SOFR 期权 9 月行权周围的隐含波动率高于前后期限,市场已部分定价「9 月降息或不降息」的二元情形。我们取 2026 年 5–10 月期限的期权点构造隐含波动率热图,显示市场把不确定性集中压缩到 9 月这一节点上。</p>
+
+        <figure class="article-chart" id="chart-2">
+          <svg class="article-chart-svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" aria-label="Chart 2: SOFR option implied volatility heatmap">
+            <!-- column header (strike) -->
+            <text x="56" y="36" class="ch-tick">expiry ↓ / strike →</text>
+            <text x="120" y="50" class="ch-tick" text-anchor="middle">−50bp</text>
+            <text x="200" y="50" class="ch-tick" text-anchor="middle">−25bp</text>
+            <text x="280" y="50" class="ch-tick" text-anchor="middle">ATM</text>
+            <text x="360" y="50" class="ch-tick" text-anchor="middle">+25bp</text>
+            <text x="440" y="50" class="ch-tick" text-anchor="middle">+50bp</text>
+            <text x="520" y="50" class="ch-tick" text-anchor="middle">+75bp</text>
+            <text x="600" y="50" class="ch-tick" text-anchor="middle">+100bp</text>
+            <!-- row headers (expiry) -->
+            <g font-size="10">
+              <text x="56" y="78" class="ch-tick">May 26</text>
+              <text x="56" y="108" class="ch-tick">Jun 26</text>
+              <text x="56" y="138" class="ch-tick">Jul 26</text>
+              <text x="56" y="168" class="ch-tick">Aug 26</text>
+              <text x="56" y="198" class="ch-tick">Sep 26</text>
+              <text x="56" y="228" class="ch-tick">Oct 26</text>
+            </g>
+            <!-- heatmap cells: 80px uniform width, centered on strike header x at {120,200,280,360,440,520,600} -->
+            <!-- row 1: May -->
+            <g>
+              <rect x="80"  y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.18"/>
+              <rect x="160" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.22"/>
+              <rect x="240" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.28"/>
+              <rect x="320" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.22"/>
+              <rect x="400" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.18"/>
+              <rect x="480" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.14"/>
+              <rect x="560" y="64" width="80" height="22" fill="var(--ink-primary)" opacity="0.10"/>
+            </g>
+            <!-- row 2: Jun -->
+            <g>
+              <rect x="80"  y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.22"/>
+              <rect x="160" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.28"/>
+              <rect x="240" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.36"/>
+              <rect x="320" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.30"/>
+              <rect x="400" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.24"/>
+              <rect x="480" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.18"/>
+              <rect x="560" y="94" width="80" height="22" fill="var(--ink-primary)" opacity="0.14"/>
+            </g>
+            <!-- row 3: Jul -->
+            <g>
+              <rect x="80"  y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.28"/>
+              <rect x="160" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.38"/>
+              <rect x="240" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.48"/>
+              <rect x="320" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.42"/>
+              <rect x="400" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.32"/>
+              <rect x="480" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.24"/>
+              <rect x="560" y="124" width="80" height="22" fill="var(--ink-primary)" opacity="0.18"/>
+            </g>
+            <!-- row 4: Aug -->
+            <g>
+              <rect x="80"  y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.36"/>
+              <rect x="160" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.50"/>
+              <rect x="240" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.62"/>
+              <rect x="320" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.56"/>
+              <rect x="400" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.42"/>
+              <rect x="480" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.30"/>
+              <rect x="560" y="154" width="80" height="22" fill="var(--ink-primary)" opacity="0.20"/>
+            </g>
+            <!-- row 5: Sep — hottest, accent overlay on ATM ±25bp -->
+            <g>
+              <rect x="80"  y="184" width="80" height="22" fill="var(--ink-primary)" opacity="0.42"/>
+              <rect x="160" y="184" width="80" height="22" fill="var(--illus-accent)" opacity="0.62"/>
+              <rect x="240" y="184" width="80" height="22" fill="var(--illus-accent)" opacity="0.84"/>
+              <rect x="320" y="184" width="80" height="22" fill="var(--illus-accent)" opacity="0.62"/>
+              <rect x="400" y="184" width="80" height="22" fill="var(--ink-primary)" opacity="0.40"/>
+              <rect x="480" y="184" width="80" height="22" fill="var(--ink-primary)" opacity="0.28"/>
+              <rect x="560" y="184" width="80" height="22" fill="var(--ink-primary)" opacity="0.20"/>
+            </g>
+            <!-- row 6: Oct -->
+            <g>
+              <rect x="80"  y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.32"/>
+              <rect x="160" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.40"/>
+              <rect x="240" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.50"/>
+              <rect x="320" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.44"/>
+              <rect x="400" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.34"/>
+              <rect x="480" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.24"/>
+              <rect x="560" y="214" width="80" height="22" fill="var(--ink-primary)" opacity="0.16"/>
+            </g>
+            <!-- callout for Sep ATM ±25bp cluster (cols 2/3/4 → x=160 to x=400) -->
+            <rect x="160" y="184" width="240" height="22" fill="none" stroke="var(--text-body)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="280" y="178" class="ch-tick" text-anchor="middle">9 月会议事件溢价</text>
+          </svg>
+          <figcaption class="article-chart-cap">
+            <span class="cap-num">Chart 2 · heatmap</span>
+            <span class="cap-title">SOFR 期权隐含波动率热图 · 2026 May–Oct × 7 行权点</span>
+            <span class="cap-src">Source: CME · 单位 IV (annualized) · 取 5/9 收盘</span>
+          </figcaption>
+        </figure>
+
+        <p>这张图最直接的含义:9 月会议事件溢价显著高于左右邻接月份,而且对称地集中在 ATM ±25bp 区间。换句话说,期权市场更担心方向不确定,而不是幅度——这与本期 §1 的结论(9 月之前 OER 与保险都看不到边际变化)一致。</p>
+
+        <blockquote>
+          市场已部分定价「9 月降息或不降息」的二元情形。这里的关键不是降不降,是会前两周的隐含路径会怎么走。
+        </blockquote>
+
+        <h2 id="conclusion">3. 结论与持仓建议</h2>
+        <p>整体上,我们维持「保留 2 年期 vs 10 年期的陡峭化倾斜」的核心配置,并在战术上做以下三件事:</p>
+        <p><strong>第一</strong>,对 9 月会议日 SOFR 跨式做多波动率,把 §2 热图最热的那一格变现。该交易的最大下行是 8 月就业数据强劲推平了热图,可用 Aug 15 之前的 vega 缩减作为止损触发。</p>
+        <p><strong>第二</strong>,权益端继续低配利率敏感的小盘成长,超配现金流稳定的大盘价值。这条已经走了三个月,但盈利收益率差距仍在历史 60% 分位以上,空间未尽。</p>
+        <p><strong>第三</strong>,信用利差不动——这条市场共识太多,反而没有意义。</p>
+
+      </section>
+
+      <!-- ===== END SECTIONS ===== -->
+      <footer class="article-end">
+
+        <section class="disclosure">
+          <h3>利益冲突披露 · 数据来源</h3>
+          <p>本文作者及其直系亲属过去 12 个月内未持有 BLS / Fed / Zillow 相关上市公司证券。本文使用的数据来自 BLS Detailed Report (April 2026)、FRED CPIAUCSL 序列、Zillow Observed Rent Index (MSA level)、CME SOFR option chain (2026 May–Oct, snapshot 2026-05-09 close)。所有图表 spec 与原始数据存档于 Analyst 平台 dataset registry,可经编辑部审核后向机构订阅者开放。</p>
+        </section>
+
+        <section class="related">
+          <div class="related-head">
+            <h3 class="related-h3">林知衡 的其他研报</h3>
+            <span class="related-meta">12 篇精选 · 加入 2025.03</span>
+          </div>
+          <div class="related-grid">
+            <article class="related-card">
+              <div class="related-cat">利率</div>
+              <h4 class="related-title">国债收益率曲线倒挂解除后,资产再定价的次序与时滞</h4>
+              <div class="related-meta-line">2026.04 · 14 min · 3 charts</div>
+            </article>
+            <article class="related-card">
+              <div class="related-cat">通胀</div>
+              <h4 class="related-title">核心 PCE vs 核心 CPI:口径分歧的归因与 9 月窗口</h4>
+              <div class="related-meta-line">2026.04 · 11 min · 4 charts</div>
+            </article>
+            <article class="related-card">
+              <div class="related-cat">宏观</div>
+              <h4 class="related-title">美联储路径定价:市场已跑在点阵图前面 35bp</h4>
+              <div class="related-meta-line">2026.03 · 18 min · 9 charts</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="follow">
+          <div class="follow-l">
+            <div class="follow-portrait"><svg viewBox="0 0 100 100"><use href="#port-lin"/></svg></div>
+            <div>
+              <div class="follow-name">林知衡</div>
+              <div class="follow-line">通胀回到 2% 是一段下坡路,但下坡有几段不同的坡度。</div>
+            </div>
+          </div>
+          <button class="follow-btn">关注 林知衡 →</button>
+        </section>
+
+      </footer>
+
+    </article>
+  </main>
+
+  <!-- Right: actions rail -->
+  <aside class="article-actions" aria-label="文章操作">
+    <button class="action-btn" data-action="save" aria-label="收藏">☆</button>
+    <button class="action-btn" data-action="share" aria-label="分享">⤢</button>
+    <button class="action-btn" id="prefs-toggle" data-action="prefs" aria-label="阅读偏好">ⓘ</button>
+    <button class="action-btn" data-action="pdf" aria-label="导出 PDF">⇣</button>
+    <button class="action-btn" data-action="slides" aria-label="导出 Slides">▶</button>
+  </aside>
+
+</div>
+
+<!-- Reading-prefs panel (hidden by default) -->
+<aside class="reading-prefs" id="reading-prefs" hidden aria-label="阅读偏好">
+  <div class="rp-head">
+    <span class="rp-title">阅读偏好</span>
+    <button class="rp-close" id="prefs-close" aria-label="关闭">×</button>
+  </div>
+  <div class="rp-section">
+    <div class="rp-label">字体</div>
+    <div class="rp-row" data-pref="font">
+      <button class="rp-opt" data-value="kai">霞鹜文楷</button>
+      <button class="rp-opt" data-value="song">思源宋体</button>
+      <button class="rp-opt" data-value="hei">思源黑体</button>
+    </div>
+  </div>
+  <div class="rp-section">
+    <div class="rp-label">字号</div>
+    <div class="rp-row" data-pref="size">
+      <button class="rp-opt" data-value="14">14</button>
+      <button class="rp-opt" data-value="16">16</button>
+      <button class="rp-opt" data-value="18">18</button>
+      <button class="rp-opt" data-value="20">20</button>
+    </div>
+  </div>
+  <div class="rp-section">
+    <div class="rp-label">行高</div>
+    <div class="rp-row" data-pref="leading">
+      <button class="rp-opt" data-value="tight">紧</button>
+      <button class="rp-opt" data-value="standard">标</button>
+      <button class="rp-opt" data-value="comfy">舒</button>
+    </div>
+  </div>
+  <div class="rp-section">
+    <div class="rp-label">主题</div>
+    <div class="rp-row" data-pref="theme">
+      <button class="rp-opt" data-value="paper">Paper</button>
+      <button class="rp-opt" data-value="sepia">Sepia</button>
+      <button class="rp-opt" data-value="dark">Dark</button>
+      <button class="rp-opt" data-value="magazine">Mag</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Selection pill -->
+<div class="sel-pill" id="sel-pill" role="menu">
+  <button data-act="improve">✨ 改进</button>
+  <span class="sel-sep"></span>
+  <button data-act="explain">解释</button>
+  <span class="sel-sep"></span>
+  <button data-act="cmd">/ 命令</button>
+</div>
+
+<script>
+(function () {
+  // ── Theme & reading prefs (localStorage-backed) ─────────────────
+  var STORAGE = {
+    theme: 'mx_theme',           // shared with index.html / workstation
+    font: 'mx_reader_font',
+    size: 'mx_reader_size',
+    leading: 'mx_reader_leading'
+  };
+  var DEFAULTS = { theme: 'paper', font: 'song', size: '16', leading: 'standard' };
+  var FONT_STACK = {
+    kai: '"LXGW WenKai", "Kaiti SC", STKaiti, KaiTi, "Source Serif 4", serif',
+    song: '"Source Serif 4", "Noto Serif SC", "Source Han Serif SC", Plantin, Georgia, serif',
+    hei:  '"Inter", "Noto Sans SC", "PingFang SC", "Helvetica Neue", sans-serif'
+  };
+  var LEADING_VALUE = { tight: 1.5, standard: 1.7, comfy: 1.95 };
+
+  function getPref(k) {
+    try { return localStorage.getItem(STORAGE[k]) || DEFAULTS[k]; } catch (e) { return DEFAULTS[k]; }
+  }
+  function setPref(k, v) {
+    try { localStorage.setItem(STORAGE[k], v); } catch (e) {}
+  }
+  function applyPrefs() {
+    var theme = getPref('theme');
+    var font = getPref('font');
+    var size = getPref('size');
+    var leading = getPref('leading');
+    document.body.setAttribute('data-theme', theme);
+    document.body.style.setProperty('--reader-font-family', FONT_STACK[font] || FONT_STACK.song);
+    document.body.style.setProperty('--reader-font-size', size + 'px');
+    document.body.style.setProperty('--reader-line-height', String(LEADING_VALUE[leading] || 1.7));
+    // sync button states
+    document.querySelectorAll('.reading-prefs .rp-row').forEach(function (row) {
+      var key = row.getAttribute('data-pref');
+      var current = key === 'theme' ? theme : key === 'font' ? font : key === 'size' ? size : leading;
+      row.querySelectorAll('.rp-opt').forEach(function (b) {
+        b.classList.toggle('is-on', b.getAttribute('data-value') === current);
+      });
+    });
+  }
+  applyPrefs();
+
+  // ── Wire prefs panel ────────────────────────────────────────────
+  var panel = document.getElementById('reading-prefs');
+  var toggle = document.getElementById('prefs-toggle');
+  var close = document.getElementById('prefs-close');
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    panel.hidden = !panel.hidden;
+    toggle.classList.toggle('is-active', !panel.hidden);
+  });
+  close.addEventListener('click', function () { panel.hidden = true; toggle.classList.remove('is-active'); });
+  document.addEventListener('click', function (e) {
+    if (panel.hidden) return;
+    if (panel.contains(e.target) || toggle.contains(e.target)) return;
+    panel.hidden = true;
+    toggle.classList.remove('is-active');
+  });
+  panel.querySelectorAll('.rp-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.parentElement.getAttribute('data-pref');
+      var val = btn.getAttribute('data-value');
+      setPref(key, val);
+      applyPrefs();
+    });
+  });
+
+  // ── Build TOC from H2/H3 in article-body ───────────────────────
+  var body = document.getElementById('article-body');
+  var tocList = document.getElementById('toc-list');
+  var headings = body.querySelectorAll('h2, h3');
+  var n = 0;
+  headings.forEach(function (h) {
+    var li = document.createElement('li');
+    if (h.tagName === 'H3') li.classList.add('is-h3');
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    if (h.tagName === 'H2') {
+      n += 1;
+      var num = document.createElement('span');
+      num.className = 'article-toc-num';
+      num.textContent = String(n).padStart(2, '0');
+      a.appendChild(num);
+    }
+    a.appendChild(document.createTextNode(h.textContent));
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+
+  // active-section highlight on scroll
+  var tocLinks = tocList.querySelectorAll('a');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        tocLinks.forEach(function (a) {
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  headings.forEach(function (h) { observer.observe(h); });
+
+  // ── Selection pill (link to /workstation with context) ─────────
+  var pill = document.getElementById('sel-pill');
+  function clearPill() { pill.classList.remove('is-visible'); }
+  function showPillForRange() {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed) { clearPill(); return; }
+    var text = sel.toString().trim();
+    if (text.length < 4) { clearPill(); return; }
+    if (!body.contains(sel.anchorNode)) { clearPill(); return; }
+    var rect = sel.getRangeAt(0).getBoundingClientRect();
+    if (!rect || rect.width === 0) { clearPill(); return; }
+    pill.style.left = (rect.left + rect.width / 2 + window.scrollX) + 'px';
+    pill.style.top = (rect.top + window.scrollY) + 'px';
+    pill.classList.add('is-visible');
+    pill.dataset.snippet = text;
+  }
+  document.addEventListener('mouseup', function () { setTimeout(showPillForRange, 0); });
+  document.addEventListener('selectionchange', function () {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed) clearPill();
+  });
+  // Prevent the browser from collapsing the selection (which would hide the
+  // pill before the click handler fires) on mousedown anywhere within it.
+  pill.addEventListener('mousedown', function (e) { e.preventDefault(); });
+  pill.querySelectorAll('button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var snippet = pill.dataset.snippet || '';
+      var act = b.getAttribute('data-act');
+      // jump to workstation, preserving context (consumed by app.jsx's chip state)
+      var qs = '?from=article&act=' + encodeURIComponent(act) + '&q=' + encodeURIComponent(snippet.slice(0, 240));
+      window.location.href = '/workstation' + qs;
+    });
+  });
+
+  // ── Action rail (placeholder behaviors for MVP) ────────────────
+  document.querySelectorAll('.action-btn[data-action]').forEach(function (btn) {
+    if (btn.id === 'prefs-toggle') return;
+    btn.addEventListener('click', function () {
+      var act = btn.getAttribute('data-action');
+      if (act === 'save') {
+        btn.textContent = btn.textContent === '★' ? '☆' : '★';
+      }
+      // share / pdf / slides — placeholders for backend integration
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
