@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=PT+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont/style.css">
 <style>
 :root {
@@ -28,7 +28,7 @@
   --font-cn-sans: "Noto Sans SC", "PingFang SC", sans-serif;
   --font-en-serif: "PT Serif", Plantin, Georgia;
   --font-en-sans: "Inter", "Helvetica Neue", Arial;
-  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-mono: "PT Mono", ui-monospace, Menlo, monospace;
   --font-body: var(--font-en-serif), var(--font-cn-serif);
   --font-ui: var(--font-en-sans), var(--font-cn-sans);
 
@@ -288,7 +288,7 @@ a { color: inherit; text-decoration: none; }
 
 .ch-axis { stroke: var(--text-muted); stroke-width: 1; fill: none; }
 .ch-grid { stroke: var(--border-soft); stroke-width: 1; stroke-dasharray: 2 4; fill: none; }
-.ch-tick { fill: var(--text-muted); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+.ch-tick { fill: var(--text-muted); font-family: var(--font-mono); font-size: 10px; }
 .ch-line-1 { fill: none; stroke: var(--ink-primary); stroke-width: 2; }
 .ch-line-2 { fill: none; stroke: var(--text-muted); stroke-width: 1.6; stroke-dasharray: 4 3; }
 .ch-dot { fill: var(--illus-accent); stroke: var(--bg-canvas); stroke-width: 2; }
