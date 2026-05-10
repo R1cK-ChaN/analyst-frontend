@@ -1,5 +1,29 @@
-/* global React, ReactDOM, useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakSelect */
+/* global React, ReactDOM */
 const { useState, useEffect, useRef, useMemo, useCallback, Fragment } = React;
+
+// AI assistant identity — bilingual, surfaces in tooltips
+const AGENT_NAME_CN = "陈襄";
+const AGENT_NAME_EN = "Shawn Chan";
+const AGENT_TITLE = `${AGENT_NAME_CN} · ${AGENT_NAME_EN}`;
+
+// Line-portrait SVG for the agent — matches index.html author-portrait style
+function AgentAvatar({ size = 22 }) {
+  return (
+    <svg viewBox="0 0 100 100" width={size} height={size} aria-label={AGENT_TITLE} style={{ flexShrink: 0 }}>
+      <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none">
+        <ellipse cx="50" cy="44" rx="20" ry="24"/>
+        <path d="M30 32 Q40 18 50 18 Q62 18 70 30"/>
+        <path d="M34 36 L48 26"/>
+        <circle cx="42" cy="46" r="5"/>
+        <circle cx="58" cy="46" r="5"/>
+        <line x1="47" y1="46" x2="53" y2="46"/>
+        <path d="M46 60 Q50 58 54 60"/>
+        <path d="M22 95 Q24 76 50 70 Q76 76 78 95"/>
+        <path d="M44 72 L50 84 L56 72"/>
+      </g>
+    </svg>
+  );
+}
 
 // ────────────────────────────────────────────────────────────
 // Mock content
@@ -136,7 +160,10 @@ function ChatStream({ messages, collapsed, onToggle }) {
         {messages.map((m, i) => (
           <div key={i} className={"chat-msg msg-" + m.who}>
             <div className="chat-msg-head">
-              <span className="chat-who">{m.who === "user" ? "你" : "Maxwell"}</span>
+              {m.who === "agent" && <AgentAvatar size={18} />}
+              <span className="chat-who" title={m.who === "agent" ? AGENT_TITLE : undefined}>
+                {m.who === "user" ? "你" : AGENT_NAME_CN}
+              </span>
               <span className="chat-time">{m.t}</span>
             </div>
             <div className="chat-body">{m.text}</div>
@@ -326,7 +353,7 @@ function DocumentStage({ doc, onSelect, sentMsg }) {
 
           {sentMsg && (
             <div className="doc-streaming">
-              <span className="stream-tag">Maxwell 正在写入 §3 第二段</span>
+              <span className="stream-tag" title={AGENT_TITLE}>{AGENT_NAME_CN} 正在写入 §3 第二段</span>
               <span className="stream-text">{sentMsg}</span>
               <span className="stream-cursor">▍</span>
             </div>
@@ -431,7 +458,7 @@ function StreamPreview({ text, visible }) {
   if (!visible) return null;
   return (
     <div className="stream-preview">
-      <div className="stream-preview-tag">Maxwell · 流式写入中</div>
+      <div className="stream-preview-tag" title={AGENT_TITLE}>{AGENT_NAME_CN} · 流式写入中</div>
       <div className="stream-preview-text">{text}</div>
     </div>
   );
@@ -472,7 +499,7 @@ function GlassInput({ chips, onClearChip, onSend, suggesting }) {
             ref={taRef}
             rows={1}
             className="glass-ta"
-            placeholder={chips.length ? "🪄 描述如何处理选中片段，或输入 / 唤起命令…" : "Ask Maxwell — 提问、写下一段，或输入 / 唤起命令"}
+            placeholder={chips.length ? "🪄 描述如何处理选中片段，或输入 / 唤起命令…" : `问 ${AGENT_NAME_CN} — 提问、写下一段，或输入 / 唤起命令`}
             value={val}
             onChange={(e) => setVal(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
@@ -488,15 +515,11 @@ function GlassInput({ chips, onClearChip, onSend, suggesting }) {
 // App
 // ────────────────────────────────────────────────────────────
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "paper",
-  "fontSize": 16,
-  "density": "compact",
-  "showSelectionDemo": true
-}/*EDITMODE-END*/;
-
 function App() {
-  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const initialTheme = (() => {
+    try { return localStorage.getItem("mx_theme") || "paper"; } catch (e) { return "paper"; }
+  })();
+  const t = { theme: initialTheme, fontSize: 16, density: "compact", showSelectionDemo: true };
   const [doc] = useState(INITIAL_DOC);
   const [chat, setChat] = useState(INITIAL_CHAT);
   const [sel, setSel] = useState(null);
@@ -585,39 +608,6 @@ function App() {
         </div>
         <WorkspacePanel collapsed={rightCollapsed} onToggle={() => setRightCollapsed(c => !c)} />
       </div>
-
-      <TweaksPanel title="Tweaks">
-        <TweakSection label="主题 Theme">
-          <TweakRadio
-            label="主题"
-            value={t.theme}
-            onChange={(v) => setTweak("theme", v)}
-            options={[
-              { value: "paper", label: "Paper" },
-              { value: "sepia", label: "Sepia" },
-              { value: "dark", label: "Dark" },
-              { value: "magazine", label: "Mag" },
-            ]}
-          />
-        </TweakSection>
-        <TweakSection label="阅读">
-          <TweakSlider
-            label="正文字号"
-            value={t.fontSize}
-            min={14} max={20} step={2} unit="px"
-            onChange={(v) => setTweak("fontSize", v)}
-          />
-          <TweakRadio
-            label="密度"
-            value={t.density}
-            onChange={(v) => setTweak("density", v)}
-            options={[
-              { value: "compact", label: "紧凑" },
-              { value: "comfy", label: "舒适" },
-            ]}
-          />
-        </TweakSection>
-      </TweaksPanel>
     </div>
   );
 }
