@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Analyst · 社区共建研报平台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-canvas: #fafaf7;
+  --bg-elevated: #ffffff;
+  --bg-illus: #efebe1;
+  --bg-band: #f1efe7;
+  --text-body: #2c2c2c;
+  --text-muted: #6b6b6b;
+  --text-faint: #9a9a92;
+  --ink-primary: #1B365D;
+  --action: #111111;          /* CTA black bg */
+  --action-text: #ffffff;
+  --illus-accent: #c87637;     /* low-sat ochre — only for illustration accents */
+  --border-soft: #e0ddd1;
+  --border-rule: #2c2c2c;
+
+  --font-cn-serif: "Noto Serif SC", "Kaiti SC", STKaiti, KaiTi, serif;
+  --font-cn-sans: "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-en-serif: "Source Serif 4", Plantin, Georgia, serif;
+  --font-en-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+  --font-ui: var(--font-en-sans), var(--font-cn-sans);
+}
+
+[data-theme="sepia"] {
+  --bg-canvas: #f5f4ed;
+  --bg-elevated: #fbfaf3;
+  --bg-illus: #ece6d5;
+  --bg-band: #ebe7d8;
+  --text-body: #33312a;
+  --text-muted: #7a7466;
+  --text-faint: #a8a294;
+  --illus-accent: #b06a2e;
+  --border-soft: #ddd8c8;
+  --border-rule: #33312a;
+}
+
+[data-theme="dark"] {
+  --bg-canvas: #1a1a1a;
+  --bg-elevated: #232323;
+  --bg-illus: #232323;
+  --bg-band: #1f1f1f;
+  --text-body: #d8d3c8;
+  --text-muted: #9b9588;
+  --text-faint: #6b665d;
+  --ink-primary: #7BA3D9;
+  --action: #d8d3c8;
+  --action-text: #1a1a1a;
+  --illus-accent: #d4915a;
+  --border-soft: #2f2f2f;
+  --border-rule: #d8d3c8;
+}
+
+[data-theme="magazine"] {
+  --bg-canvas: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-illus: #f5f5f5;
+  --bg-band: #ffffff;
+  --text-body: #000000;
+  --text-muted: #6e6e6e;
+  --text-faint: #9b9b9b;
+  --ink-primary: #000000;
+  --action: #ffc500;          /* magazine keeps mustard CTA */
+  --action-text: #000000;
+  --illus-accent: #ffc500;
+  --border-soft: #cfcfcf;
+  --border-rule: #000000;
+  --font-cn-serif: "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-body: var(--font-en-serif), var(--font-cn-serif);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg-canvas);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+a.h-link:hover { color: var(--ink-primary); }
+[data-theme="magazine"] a.h-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+img { max-width: 100%; display: block; }
+
+/* ===== UTIL ===== */
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.eyebrow .dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: currentColor; margin: 0 8px 2px; vertical-align: middle; opacity: 0.7; }
+.meta { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.01em; }
+.mono { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+
+/* ===== ILLUSTRATION FRAME ===== */
+/* "editorial line illustration" — same aesthetic across all placeholders */
+.illus {
+  background: var(--bg-illus);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: var(--text-body);
+}
+.illus svg.line-art {
+  width: 86%;
+  height: 86%;
+  display: block;
+}
+.illus .corner-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+.illus .corner-tag-r {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ===== TOP NAV ===== */
+.topbar {
+  border-bottom: 2px solid var(--border-rule);
+  background: var(--bg-canvas);
+}
+.topbar-inner {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand-mark { display: inline-flex; align-items: center; gap: 12px; }
+.brand-glyph { width: 22px; height: 22px; background: var(--ink-primary); transform: rotate(45deg); }
+[data-theme="magazine"] .brand-glyph { background: var(--text-body); }
+.brand-name {
+  font-family: var(--font-en-serif);
+  font-size: 28px; font-weight: 700;
+  letter-spacing: -0.02em; line-height: 1;
+}
+.primary-nav {
+  display: flex; gap: 32px;
+  font-family: var(--font-ui);
+  font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+}
+.primary-nav a { position: relative; padding: 6px 0; }
+.primary-nav a.is-active::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -20px;
+  height: 2px; background: var(--ink-primary);
+}
+[data-theme="magazine"] .primary-nav a.is-active::after { height: 4px; background: var(--action); }
+
+.subnav {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 10px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-soft);
+}
+.subnav-cats { display: flex; gap: 20px; }
+.subnav-cats a:hover { color: var(--ink-primary); }
+.subnav-search {
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: text;
+}
+
+/* ===== PAGE GRID ===== */
+.page { max-width: 1296px; margin: 0 auto; padding: 0 32px; }
+
+/* ===== HERO ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  gap: 40px;
+  padding: 36px 0 40px;
+  border-bottom: 2px solid var(--border-rule);
+}
+.hero-main { display: flex; flex-direction: column; gap: 18px; }
+.hero-img { aspect-ratio: 16 / 9; }
+.hero-headline {
+  font-family: var(--font-body);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 4px 0 0;
+}
+.hero-dek {
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 56ch;
+}
+.hero-byline {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.hero-byline strong { color: var(--text-body); font-weight: 600; }
+.hero-byline .pipe { color: var(--text-faint); }
+
+.hero-side {
+  display: flex; flex-direction: column;
+  border-left: 1px solid var(--border-soft);
+  padding-left: 32px;
+  gap: 24px;
+}
+.hero-side-item {
+  display: flex; flex-direction: column; gap: 10px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.hero-side-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.hero-side-img { aspect-ratio: 16 / 10; }
+.hero-side-title {
+  font-family: var(--font-body);
+  font-size: 22px; font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.hero-side-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+/* ===== SECTION CAT BAND (typographic, no full-bleed colour) ===== */
+.cat-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 36px 0 12px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 26px;
+  font-family: var(--font-ui);
+  color: var(--text-body);
+}
+.cat-band .band-l { display: flex; gap: 14px; align-items: baseline; }
+.cat-band .band-l > .band-name {
+  font-family: var(--font-en-serif);
+  font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+}
+.cat-band .band-num,
+.cat-band .band-r {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-muted);
+}
+
+/* ===== TOC (replaces 4-card briefing) ===== */
+.toc-section { padding: 30px 0 12px; }
+.toc-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-top: 2px solid var(--border-rule);
+  padding-top: 20px;
+}
+.toc-vol {
+  font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-primary);
+}
+.toc-date {
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+}
+.toc-title {
+  font-family: var(--font-body);
+  font-size: 30px; font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 6px 0 22px;
+}
+.toc-title .en {
+  font-style: italic; font-weight: 400;
+  color: var(--text-muted); font-size: 22px;
+  margin-left: 12px;
+}
+.toc-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border-soft); }
+.toc-row {
+  display: grid;
+  grid-template-columns: 50px 110px 1fr auto auto 60px;
+  align-items: baseline;
+  gap: 0 18px;
+  padding: 14px 0 13px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.toc-row:hover { background: var(--bg-band); cursor: pointer; }
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--text-muted);
+}
+.toc-cat {
+  font-family: var(--font-ui);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.toc-title-text {
+  font-family: var(--font-body);
+  font-size: 18px; font-weight: 500;
+  line-height: 1.3; letter-spacing: -0.005em;
+}
+.toc-author {
+  font-family: var(--font-ui); font-size: 12px;
+  color: var(--text-body); font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.toc-readtime {
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-muted);
+}
+.toc-page {
+  font-family: var(--font-en-serif);
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: right;
+  color: var(--text-body);
+}
+.toc-foot {
+  display: flex; justify-content: space-between;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px; color: var(--text-muted);
+}
+
+/* ===== MACRO ===== */
+.macro { padding: 0 0 40px; }
+.macro-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 36px;
+}
+.macro-feature { display: flex; flex-direction: column; gap: 14px; }
+.macro-feature .img-block { aspect-ratio: 4/3; }
+.macro-headline {
+  font-family: var(--font-body);
+  font-size: 36px; font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.macro-dek {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0; max-width: 50ch;
+}
+.macro-list { display: flex; flex-direction: column; }
+.macro-item {
+  padding: 18px 0;
+  border-top: 1px solid var(--border-soft);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.macro-item:first-child { border-top: 0; padding-top: 0; }
+.macro-item:last-child { padding-bottom: 0; }
+.macro-item-num { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); padding-top: 4px; }
+.macro-item-body { display: flex; flex-direction: column; gap: 6px; }
+.macro-item-title {
+  font-family: var(--font-body);
+  font-size: 18px; font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.macro-item-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+/* ===== EDITORS PICKS ===== */
+.picks { padding: 30px 0 40px; border-top: 2px solid var(--border-rule); }
+.picks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 48px;
+}
+.pick-item {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border-soft);
+  align-items: start;
+}
+.pick-item:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 0; }
+.pick-thumb { width: 130px; aspect-ratio: 1; }
+.pick-body { display: flex; flex-direction: column; gap: 8px; }
+.pick-title {
+  font-family: var(--font-body);
+  font-size: 20px; font-weight: 600;
+  line-height: 1.22; letter-spacing: -0.005em;
+  margin: 0;
+}
+.pick-snippet { font-family: var(--font-body); font-size: 14px; color: var(--text-muted); line-height: 1.45; margin: 0; }
+
+/* ===== MARKETS ===== */
+.markets { padding: 0 0 40px; }
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.market-card { display: flex; flex-direction: column; gap: 10px; }
+.market-img { aspect-ratio: 4/3; }
+.market-title {
+  font-family: var(--font-body);
+  font-size: 19px; font-weight: 600;
+  line-height: 1.22; letter-spacing: -0.005em;
+  margin: 0;
+}
+.market-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+/* ===== MOST READ ===== */
+.most-read { padding: 30px 0 40px; border-top: 2px solid var(--border-rule); }
+.most-read-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
+.most-read-col { display: flex; flex-direction: column; }
+.mr-item {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.mr-item:last-child { border-bottom: 0; }
+.mr-rank {
+  font-family: var(--font-en-serif);
+  font-size: 32px; font-weight: 700;
+  color: var(--ink-primary);
+  letter-spacing: -0.02em; line-height: 1;
+}
+[data-theme="magazine"] .mr-rank { color: var(--text-body); }
+.mr-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mr-title {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600;
+  line-height: 1.25; letter-spacing: -0.005em;
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.mr-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+.mr-saves { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+/* ===== ANALYST WALL — line-portrait cards ===== */
+.authors { padding: 0 0 48px; }
+.authors-intro {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 36px;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.authors-intro-l {
+  font-family: var(--font-body);
+  font-size: 26px; font-weight: 700;
+  line-height: 1.22; letter-spacing: -0.01em;
+  margin: 0;
+}
+.authors-intro-r {
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--text-muted);
+  line-height: 1.55; margin: 0;
+}
+.authors-intro-r .pull {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-primary); letter-spacing: 0;
+}
+.authors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.author-card {
+  border-top: 1px solid var(--border-soft);
+  padding: 18px 0 0;
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.author-portrait {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg-illus);
+  display: grid; place-items: center;
+  margin-bottom: 6px;
+}
+.author-portrait svg { width: 78%; height: 78%; }
+.author-quote {
+  font-family: var(--font-body);
+  font-size: 13px; font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+.author-name-row { display: flex; justify-content: space-between; align-items: baseline; }
+.author-name {
+  font-family: var(--font-body);
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.01em; margin: 0;
+}
+.author-cat {
+  font-family: var(--font-ui);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.author-tagline { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; margin: 0; }
+.author-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+  font-family: var(--font-ui);
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.author-stats .num {
+  font-family: var(--font-en-serif);
+  font-size: 18px; font-weight: 700;
+  color: var(--text-body);
+  display: block;
+  letter-spacing: -0.02em;
+  margin-bottom: 1px;
+  text-transform: none;
+}
+
+/* ===== SUBSCRIBE CARD (no full-bleed band) ===== */
+.subscribe {
+  margin-top: 12px;
+  padding: 38px 0 50px;
+  border-top: 2px solid var(--border-rule);
+  border-bottom: 1px solid var(--border-soft);
+}
+.subscribe-grid {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  gap: 56px;
+  align-items: end;
+}
+.subscribe-l { display: flex; flex-direction: column; gap: 10px; }
+.subscribe-headline {
+  font-family: var(--font-body);
+  font-size: 32px; font-weight: 700;
+  line-height: 1.14; letter-spacing: -0.015em;
+  margin: 0;
+}
+.subscribe-dek { font-family: var(--font-body); font-size: 15px; color: var(--text-muted); margin: 0; max-width: 44ch; }
+.subscribe-form {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.subscribe-row { display: flex; gap: 0; }
+.subscribe-input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid var(--border-rule);
+  border-right: 0;
+  background: transparent;
+  color: var(--text-body);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  outline: none;
+}
+.subscribe-input::placeholder { color: var(--text-faint); }
+.subscribe-btn {
+  background: var(--action);
+  color: var(--action-text);
+  border: 1px solid var(--action);
+  padding: 14px 22px;
+  font-family: var(--font-ui);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+}
+.subscribe-foot { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  border-top: 1px solid var(--border-soft);
+  padding: 40px 0 24px;
+}
+.footer-grid {
+  max-width: 1296px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr 3fr;
+  gap: 32px;
+}
+.footer-brand {
+  display: flex; flex-direction: column; gap: 12px;
+  font-family: var(--font-en-serif);
+}
+.footer-brand-name { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+.footer-tag { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; max-width: 28ch; }
+.footer-col h4 {
+  font-family: var(--font-ui);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { font-family: var(--font-ui); font-size: 13px; color: var(--text-muted); }
+.footer-col a:hover { color: var(--ink-primary); }
+.footer-bottom {
+  max-width: 1296px;
+  margin: 32px auto 0;
+  padding: 16px 32px 0;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--border-soft); padding-top: 24px; }
+  .toc-row { grid-template-columns: 40px 80px 1fr 50px; gap: 12px; }
+  .toc-row .toc-author, .toc-row .toc-readtime { display: none; }
+  .macro-grid { grid-template-columns: 1fr; }
+  .picks-grid { grid-template-columns: 1fr; }
+  .markets-grid { grid-template-columns: repeat(2, 1fr); }
+  .most-read-grid { grid-template-columns: 1fr; }
+  .authors-grid { grid-template-columns: repeat(2, 1fr); }
+  .authors-intro { grid-template-columns: 1fr; gap: 12px; }
+  .subscribe-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .hero-headline { font-size: 36px; }
+  .macro-headline { font-size: 26px; }
+  .markets-grid { grid-template-columns: 1fr; }
+  .authors-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body data-theme="paper">
+
+<!-- ===================== ILLUSTRATION SYMBOL LIBRARY ===================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- 1. CPI desk · BLS press conference vibe -->
+    <symbol id="illus-cpi-desk" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="10" y1="160" x2="230" y2="160"/>
+        <!-- document with chart -->
+        <rect x="36" y="50" width="120" height="106"/>
+        <line x1="46" y1="64" x2="110" y2="64"/>
+        <line x1="46" y1="72" x2="140" y2="72"/>
+        <line x1="46" y1="80" x2="125" y2="80"/>
+        <polyline points="46,135 64,128 82,118 100,120 118,102 136,90 148,96"/>
+        <line x1="46" y1="142" x2="148" y2="142" stroke-dasharray="2 3" opacity="0.5"/>
+        <!-- pen across document -->
+        <line x1="92" y1="44" x2="155" y2="60" stroke-width="1.6"/>
+        <path d="M155 60 l 5 -2 l -1 4 z" fill="currentColor"/>
+        <!-- coffee mug -->
+        <path d="M170 110 L170 152 Q170 156 176 156 L200 156 Q206 156 206 152 L206 110 Z"/>
+        <path d="M206 118 Q218 118 218 130 Q218 142 206 142"/>
+        <path d="M180 100 q-3 -6 0 -10 q3 -6 0 -12" opacity="0.7"/>
+        <path d="M195 100 q3 -6 0 -10 q-3 -6 0 -12" opacity="0.7"/>
+        <!-- glasses -->
+        <circle cx="58" cy="35" r="8"/>
+        <circle cx="84" cy="35" r="8"/>
+        <line x1="66" y1="35" x2="76" y2="35"/>
+        <!-- accent dot on chart -->
+        <circle cx="136" cy="90" r="3.5" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 2. Vol surface · options -->
+    <symbol id="illus-vol-surface" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none">
+        <line x1="40" y1="148" x2="210" y2="148"/>
+        <line x1="40" y1="148" x2="40" y2="38"/>
+        <line x1="40" y1="148" x2="22" y2="166"/>
+        <line x1="210" y1="148" x2="195" y2="166"/>
+        <!-- surface curves (front to back) -->
+        <path d="M48 130 Q90 110 130 116 T210 100"/>
+        <path d="M55 116 Q95 88 135 92 T215 76"/>
+        <path d="M62 100 Q102 72 142 70 T220 58"/>
+        <path d="M70 84 Q108 62 148 60 T225 50"/>
+        <!-- cross-section depth -->
+        <path d="M48 130 L70 84"/>
+        <path d="M88 116 L108 64"/>
+        <path d="M130 116 L148 60"/>
+        <path d="M170 108 L188 56"/>
+        <path d="M210 100 L225 50"/>
+        <!-- accent peak -->
+        <circle cx="148" cy="60" r="3.5" fill="var(--illus-accent)" stroke="none"/>
+        <text x="22" y="32" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.7">σ · K × T</text>
+      </g>
+    </symbol>
+
+    <!-- 3. Gold bullion -->
+    <symbol id="illus-gold-bullion" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="20" y1="158" x2="220" y2="158"/>
+        <!-- bottom bar -->
+        <path d="M40 150 L72 128 L210 128 L186 150 Z"/>
+        <line x1="210" y1="128" x2="210" y2="118"/>
+        <line x1="186" y1="150" x2="186" y2="140"/>
+        <path d="M210 118 L186 140 L184 150"/>
+        <!-- middle bar -->
+        <path d="M55 122 L86 100 L194 100 L168 122 Z"/>
+        <!-- top bar -->
+        <path d="M70 95 L98 73 L178 73 L152 95 Z"/>
+        <text x="105" y="89" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none">999.9 fine</text>
+        <!-- accent shine -->
+        <line x1="100" y1="79" x2="135" y2="79" stroke="var(--illus-accent)" stroke-width="2.5"/>
+      </g>
+    </symbol>
+
+    <!-- 4. Fed funds chart — proper market vs dots -->
+    <symbol id="illus-fed-funds" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none">
+        <line x1="32" y1="150" x2="220" y2="150"/>
+        <line x1="32" y1="40" x2="32" y2="150"/>
+        <line x1="32" y1="80" x2="220" y2="80" stroke-dasharray="2 3" opacity="0.3"/>
+        <line x1="32" y1="115" x2="220" y2="115" stroke-dasharray="2 3" opacity="0.3"/>
+        <!-- market -->
+        <polyline stroke-width="1.8" points="36,148 56,140 76,124 96,98 116,72 136,58 156,72 176,86 196,98 216,108"/>
+        <!-- FOMC dots -->
+        <polyline stroke-dasharray="3 3" points="36,150 56,142 76,128 96,104 116,84 136,76 156,84 176,94 196,104 216,114"/>
+        <!-- divergence callout -->
+        <circle cx="136" cy="58" r="3.5" fill="var(--illus-accent)" stroke="none"/>
+        <line x1="139" y1="58" x2="160" y2="48" stroke-width="0.8"/>
+        <text x="162" y="50" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none">−35bp</text>
+        <!-- ticks -->
+        <text x="36" y="164" font-family="JetBrains Mono" font-size="8" fill="currentColor" opacity="0.6" stroke="none">2024</text>
+        <text x="200" y="164" font-family="JetBrains Mono" font-size="8" fill="currentColor" opacity="0.6" stroke="none">2027F</text>
+        <text x="22" y="32" font-family="JetBrains Mono" font-size="8" fill="currentColor" opacity="0.6" stroke="none">FFR · %</text>
+      </g>
+    </symbol>
+
+    <!-- 5. LTCM books + lamp -->
+    <symbol id="illus-ltcm-books" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="20" y1="158" x2="220" y2="158"/>
+        <rect x="42" y="92" width="125" height="20"/>
+        <line x1="52" y1="96" x2="52" y2="108"/>
+        <line x1="58" y1="96" x2="58" y2="108"/>
+        <text x="68" y="106" font-family="Source Serif 4" font-size="9" font-style="italic" fill="currentColor" stroke="none">When Genius Failed</text>
+        <rect x="50" y="112" width="125" height="22"/>
+        <line x1="60" y1="116" x2="60" y2="130"/>
+        <line x1="66" y1="116" x2="66" y2="130"/>
+        <text x="78" y="127" font-family="Source Serif 4" font-size="10" fill="currentColor" stroke="none">L T C M  ·  1998</text>
+        <rect x="60" y="134" width="125" height="22"/>
+        <text x="70" y="149" font-family="Source Serif 4" font-size="9" font-style="italic" fill="currentColor" stroke="none">Risk Budget</text>
+        <!-- lamp -->
+        <path d="M198 50 L213 50 L218 80 L193 80 Z"/>
+        <line x1="205" y1="80" x2="205" y2="155"/>
+        <ellipse cx="205" cy="158" rx="16" ry="3"/>
+        <!-- light cone -->
+        <path d="M196 80 L162 145 L248 145 L214 80 Z" fill="var(--illus-accent)" stroke="none" opacity="0.18"/>
+      </g>
+    </symbol>
+
+    <!-- 6. Mining ingot -->
+    <symbol id="illus-mining-ingot" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="20" y1="155" x2="220" y2="155"/>
+        <!-- pickaxe -->
+        <path d="M30 55 Q60 42 95 55 Q72 62 50 75 Z"/>
+        <line x1="65" y1="56" x2="118" y2="135" stroke-width="1.8"/>
+        <!-- ore chunk -->
+        <path d="M118 130 L138 118 L160 124 L165 142 L150 152 L125 150 Z"/>
+        <line x1="135" y1="128" x2="148" y2="138" opacity="0.5"/>
+        <line x1="140" y1="142" x2="155" y2="132" opacity="0.5"/>
+        <!-- ingot -->
+        <path d="M175 125 L202 125 L208 145 L168 145 Z"/>
+        <text x="172" y="139" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none">Cu / Li</text>
+        <!-- accent -->
+        <circle cx="142" cy="135" r="3" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 7. POS terminal -->
+    <symbol id="illus-pos-terminal" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="20" y1="160" x2="220" y2="160"/>
+        <rect x="78" y="40" width="84" height="118" rx="5"/>
+        <rect x="88" y="50" width="64" height="36"/>
+        <text x="98" y="68" font-family="JetBrains Mono" font-size="10" fill="currentColor" stroke="none">$ 49.00</text>
+        <text x="98" y="80" font-family="JetBrains Mono" font-size="6" fill="currentColor" stroke="none" opacity="0.6">approve →</text>
+        <g><circle cx="100" cy="100" r="4"/><circle cx="120" cy="100" r="4"/><circle cx="140" cy="100" r="4"/></g>
+        <g><circle cx="100" cy="116" r="4"/><circle cx="120" cy="116" r="4"/><circle cx="140" cy="116" r="4"/></g>
+        <g><circle cx="100" cy="132" r="4"/><circle cx="120" cy="132" r="4"/><circle cx="140" cy="132" r="4"/></g>
+        <rect x="95" y="146" width="50" height="6"/>
+        <!-- receipt curling -->
+        <path d="M95 40 Q102 22 115 24 Q128 28 134 18 Q140 30 152 24 L152 40"/>
+        <line x1="100" y1="32" x2="146" y2="32" opacity="0.45"/>
+        <line x1="100" y1="36" x2="146" y2="36" opacity="0.45"/>
+        <!-- accent: confirm light -->
+        <circle cx="156" cy="48" r="3" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 8. GPU chip -->
+    <symbol id="illus-gpu-chip" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <rect x="28" y="52" width="184" height="86" rx="3"/>
+        <rect x="98" y="78" width="44" height="44"/>
+        <text x="103" y="105" font-family="JetBrains Mono" font-size="10" fill="currentColor" stroke="none">GPU</text>
+        <!-- pin lines -->
+        <g opacity="0.85">
+          <line x1="98" y1="86" x2="88" y2="86"/><line x1="98" y1="96" x2="88" y2="96"/>
+          <line x1="98" y1="106" x2="88" y2="106"/><line x1="98" y1="116" x2="88" y2="116"/>
+          <line x1="142" y1="86" x2="152" y2="86"/><line x1="142" y1="96" x2="152" y2="96"/>
+          <line x1="142" y1="106" x2="152" y2="106"/><line x1="142" y1="116" x2="152" y2="116"/>
+        </g>
+        <!-- VRAM modules -->
+        <rect x="38" y="62" width="22" height="14"/>
+        <rect x="38" y="80" width="22" height="14"/>
+        <rect x="38" y="98" width="22" height="14"/>
+        <rect x="38" y="116" width="22" height="14"/>
+        <rect x="180" y="62" width="22" height="14"/>
+        <rect x="180" y="80" width="22" height="14"/>
+        <rect x="180" y="98" width="22" height="14"/>
+        <rect x="180" y="116" width="22" height="14"/>
+        <!-- pcie connector -->
+        <line x1="62" y1="142" x2="180" y2="142" stroke-width="2.2"/>
+        <line x1="68" y1="142" x2="68" y2="150"/>
+        <line x1="98" y1="142" x2="98" y2="150"/>
+        <line x1="142" y1="142" x2="142" y2="150"/>
+        <line x1="172" y1="142" x2="172" y2="150"/>
+        <!-- accent -->
+        <circle cx="200" cy="60" r="2.8" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 9. Trader at desk -->
+    <symbol id="illus-trader-phone" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- bg screens -->
+        <rect x="14" y="22" width="62" height="42"/>
+        <polyline points="20,58 32,46 44,52 56,38 66,44 74,30" opacity="0.6"/>
+        <line x1="20" y1="62" x2="74" y2="62" stroke-dasharray="2 2" opacity="0.5"/>
+        <rect x="164" y="22" width="62" height="42"/>
+        <polyline points="170,55 180,32 192,42 202,32 212,48 222,40" opacity="0.6"/>
+        <line x1="170" y1="62" x2="222" y2="62" stroke-dasharray="2 2" opacity="0.5"/>
+        <!-- person -->
+        <circle cx="120" cy="78" r="20"/>
+        <!-- hair line -->
+        <path d="M104 70 Q120 56 138 70"/>
+        <!-- shoulders / shirt -->
+        <path d="M88 132 Q88 102 120 100 Q152 102 152 132 L152 170 L88 170 Z"/>
+        <!-- arm to phone -->
+        <path d="M148 118 Q172 110 168 88"/>
+        <rect x="162" y="74" width="12" height="18" rx="1"/>
+        <!-- accent: phone screen on -->
+        <rect x="164" y="76" width="8" height="12" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 10. Yield curve -->
+    <symbol id="illus-yield-curve" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none">
+        <line x1="32" y1="148" x2="220" y2="148"/>
+        <line x1="32" y1="40" x2="32" y2="148"/>
+        <text x="35" y="162" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.6">2y</text>
+        <text x="84" y="162" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.6">5y</text>
+        <text x="138" y="162" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.6">10y</text>
+        <text x="200" y="162" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.6">30y</text>
+        <text x="22" y="34" font-family="JetBrains Mono" font-size="8" fill="currentColor" stroke="none" opacity="0.7">yield · %</text>
+        <!-- inverted (old) -->
+        <path d="M36 70 C 80 80, 130 110, 215 130" stroke-dasharray="3 3" opacity="0.5"/>
+        <!-- new -->
+        <path stroke-width="1.8" d="M36 110 C 82 92, 130 70, 215 50"/>
+        <circle cx="135" cy="73" r="3.5" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- 11. BTC coin -->
+    <symbol id="illus-btc-coin" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <ellipse cx="160" cy="100" rx="40" ry="42"/>
+        <text x="146" y="118" font-family="Source Serif 4" font-size="42" font-weight="700" fill="currentColor" stroke="none">$</text>
+        <ellipse cx="100" cy="100" rx="46" ry="48"/>
+        <text x="80" y="122" font-family="Source Serif 4" font-size="50" font-weight="700" fill="currentColor" stroke="none">B</text>
+        <line x1="98" y1="68" x2="98" y2="80"/>
+        <line x1="98" y1="120" x2="98" y2="132"/>
+        <!-- shine -->
+        <path d="M70 75 q 12 -10 26 -10" stroke="var(--illus-accent)" stroke-width="2" fill="none" opacity="0.85"/>
+      </g>
+    </symbol>
+
+    <!-- 12. Pump jack (oil) -->
+    <symbol id="illus-oil-rig" viewBox="0 0 240 180">
+      <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="10" y1="155" x2="230" y2="155"/>
+        <!-- A-frame -->
+        <line x1="80" y1="155" x2="120" y2="78"/>
+        <line x1="160" y1="155" x2="120" y2="78"/>
+        <line x1="100" y1="115" x2="140" y2="115"/>
+        <!-- horsehead beam -->
+        <line x1="60" y1="92" x2="178" y2="62"/>
+        <line x1="60" y1="92" x2="56" y2="78"/>
+        <line x1="60" y1="92" x2="68" y2="80"/>
+        <path d="M178 62 q 14 -2 18 12 q -10 0 -16 6"/>
+        <!-- pitman arm -->
+        <line x1="160" y1="78" x2="160" y2="120"/>
+        <circle cx="160" cy="124" r="8"/>
+        <!-- well casing -->
+        <rect x="42" y="110" width="14" height="45"/>
+        <line x1="46" y1="115" x2="52" y2="115"/>
+        <line x1="46" y1="125" x2="52" y2="125"/>
+        <!-- ground texture -->
+        <path d="M14 158 q 30 -3 60 0 q 30 -3 60 0 q 30 -3 60 0 q 30 -3 60 0" opacity="0.4"/>
+        <!-- accent: gas flare -->
+        <path d="M196 110 q 6 -10 0 -22 q 8 6 10 18 z" fill="var(--illus-accent)" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- ============ ANALYST PORTRAITS (line-art) ============ -->
+    <symbol id="port-lin" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <ellipse cx="50" cy="44" rx="20" ry="24"/>
+        <path d="M30 32 Q42 20 50 21 Q60 21 70 32"/>
+        <path d="M36 28 L44 22"/>
+        <path d="M50 26 L58 20"/>
+        <circle cx="42" cy="46" r="5"/>
+        <circle cx="58" cy="46" r="5"/>
+        <line x1="47" y1="46" x2="53" y2="46"/>
+        <path d="M46 58 Q50 60 54 58"/>
+        <path d="M22 95 Q24 76 50 70 Q76 76 78 95"/>
+        <path d="M44 72 L50 84 L56 72"/>
+      </g>
+    </symbol>
+
+    <symbol id="port-su" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <ellipse cx="50" cy="44" rx="19" ry="23"/>
+        <path d="M32 32 Q42 16 56 20 Q66 22 68 38"/>
+        <path d="M40 28 L48 18"/>
+        <line x1="38" y1="40" x2="46" y2="40"/>
+        <line x1="54" y1="40" x2="62" y2="40"/>
+        <circle cx="42" cy="46" r="1.4" fill="currentColor"/>
+        <circle cx="58" cy="46" r="1.4" fill="currentColor"/>
+        <path d="M50 50 L48 56 L52 56"/>
+        <path d="M44 60 Q50 63 56 60"/>
+        <path d="M22 95 Q24 76 50 70 Q76 76 78 95"/>
+        <path d="M48 72 L46 82 L50 95 L54 82 L52 72"/>
+      </g>
+    </symbol>
+
+    <symbol id="port-zhou" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="50" cy="20" r="8"/>
+        <line x1="46" y1="16" x2="54" y2="24" opacity="0.5"/>
+        <line x1="54" y1="16" x2="46" y2="24" opacity="0.5"/>
+        <ellipse cx="50" cy="46" rx="19" ry="22"/>
+        <path d="M32 38 Q42 30 50 28"/>
+        <path d="M68 38 Q58 30 50 28"/>
+        <circle cx="29" cy="52" r="1.5" fill="currentColor"/>
+        <circle cx="71" cy="52" r="1.5" fill="currentColor"/>
+        <line x1="40" y1="46" x2="45" y2="46" stroke-width="1.8"/>
+        <line x1="55" y1="46" x2="60" y2="46" stroke-width="1.8"/>
+        <path d="M50 52 L48 58 L52 58"/>
+        <path d="M45 63 Q50 65 55 63"/>
+        <path d="M22 95 Q24 76 40 72 L60 72 Q76 76 78 95"/>
+        <path d="M40 72 Q50 80 60 72"/>
+      </g>
+    </symbol>
+
+    <symbol id="port-aria" viewBox="0 0 100 100">
+      <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- bob hair outer -->
+        <path d="M28 30 Q30 16 50 14 Q70 16 72 30 L72 56 Q70 60 66 56 L66 36 Q60 26 50 25 Q40 26 34 36 L34 56 Q30 60 28 56 Z"/>
+        <!-- face -->
+        <ellipse cx="50" cy="46" rx="17" ry="20"/>
+        <!-- bangs -->
+        <path d="M34 38 Q42 32 50 34 Q58 32 66 38"/>
+        <line x1="40" y1="48" x2="44" y2="48" stroke-width="1.8"/>
+        <line x1="56" y1="48" x2="60" y2="48" stroke-width="1.8"/>
+        <path d="M46 60 Q50 62 54 60"/>
+        <path d="M22 95 Q24 76 50 70 Q76 76 78 95"/>
+        <path d="M40 72 L50 82 L60 72"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===================== TOP NAV ===================== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand-mark">
+      <div class="brand-glyph"></div>
+      <div class="brand-name">Analyst</div>
+    </a>
+    <nav class="primary-nav">
+      <a href="index.html" class="is-active">首页</a>
+      <a href="#research">研报</a>
+      <a href="workstation.html">工作台</a>
+      <a href="#authors">作者榜</a>
+      <a href="#saved">收藏</a>
+    </nav>
+  </div>
+</header>
+
+<div class="subnav">
+  <div class="subnav-cats">
+    <a href="#">宏观</a>
+    <a href="#">权益</a>
+    <a href="#">衍生品</a>
+    <a href="#">固收</a>
+    <a href="#">加密资产</a>
+    <a href="#">大宗商品</a>
+    <a href="#">行业</a>
+  </div>
+  <div class="subnav-search">
+    <span style="font-family:var(--font-mono); font-size:11px;">⌕</span>
+    <span>搜索作者、研报、数据集</span>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<main class="page">
+  <section class="hero">
+    <article class="hero-main">
+      <div class="hero-img illus">
+        <svg class="line-art" viewBox="0 0 240 180" preserveAspectRatio="xMidYMid meet"><use href="#illus-cpi-desk"/></svg>
+        <span class="corner-tag-r">FIG · 01</span>
+        <span class="corner-tag">illus · CPI desk, after BLS press</span>
+      </div>
+      <div class="eyebrow"><span>头条</span><span class="dot"></span><span>宏观</span><span class="dot"></span><span>编辑精选</span></div>
+      <h1 class="hero-headline">美国 4 月 CPI 解构:核心服务粘性<br>与租金传导的最后一里</h1>
+      <p class="hero-dek">把核心服务通胀拆成 OER + 保险 + 其余三段后,7 月以前回到 4% 以内仍是基线;OER 对 Zillow 滞后 11–13 个月,机动车保险则在 9 月之后才进入低基数,这两条决定 9 月 FOMC 的边际选项。</p>
+      <div class="hero-byline">
+        <span><strong>林知衡</strong> · 签约作者</span>
+        <span class="pipe">·</span>
+        <span>14 min read</span>
+        <span class="pipe">·</span>
+        <span class="mono" style="font-size:11px;">2026-05-10 · v3 · 3 charts · 2 tables</span>
+        <span class="pipe">·</span>
+        <span>1,247 ★</span>
+      </div>
+    </article>
+
+    <aside class="hero-side">
+      <div class="hero-side-item">
+        <div class="hero-side-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-vol-surface"/></svg>
+          <span class="corner-tag-r">FIG · 02</span>
+        </div>
+        <div class="eyebrow"><span>衍生品</span></div>
+        <h3 class="hero-side-title">9 月 FOMC 会前的期权定价:市场如何押注非对称风险</h3>
+        <div class="hero-side-meta">苏明哲 · 9 min · 612 ★</div>
+      </div>
+      <div class="hero-side-item">
+        <div class="hero-side-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-gold-bullion"/></svg>
+          <span class="corner-tag-r">FIG · 03</span>
+        </div>
+        <div class="eyebrow"><span>大宗商品</span></div>
+        <h3 class="hero-side-title">黄金 4,200 关口:实际利率与央行配置的两条曲线</h3>
+        <div class="hero-side-meta">周愈 · 11 min · 488 ★</div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<!-- ===================== TOC (Magazine Table of Contents) ===================== -->
+<main class="page">
+  <section class="toc-section">
+    <div class="toc-header">
+      <span class="toc-vol">VOL. 14 · ISSUE 18 · 本期目录</span>
+      <span class="toc-date">10 May 2026 · 编辑部双人复核</span>
+    </div>
+    <h2 class="toc-title">本期速读 <span class="en">The Briefing</span></h2>
+    <ol class="toc-list">
+      <li class="toc-row">
+        <span class="toc-num">№ 01</span>
+        <span class="toc-cat">科技</span>
+        <span class="toc-title-text">Anthropic 收入跃迁与算力配比:估值空间还有多少?</span>
+        <span class="toc-author">叶之初</span>
+        <span class="toc-readtime">12 min</span>
+        <span class="toc-page">P. 04</span>
+      </li>
+      <li class="toc-row">
+        <span class="toc-num">№ 02</span>
+        <span class="toc-cat">中国</span>
+        <span class="toc-title-text">上证 50ETF 沽购比创年内新高:信号还是噪音?</span>
+        <span class="toc-author">陆问渠</span>
+        <span class="toc-readtime">8 min</span>
+        <span class="toc-page">P. 09</span>
+      </li>
+      <li class="toc-row">
+        <span class="toc-num">№ 03</span>
+        <span class="toc-cat">日本</span>
+        <span class="toc-title-text">日央行 7 月加息路径回测:汇率传导与隐含通胀</span>
+        <span class="toc-author">高原裕</span>
+        <span class="toc-readtime">10 min</span>
+        <span class="toc-page">P. 12</span>
+      </li>
+      <li class="toc-row">
+        <span class="toc-num">№ 04</span>
+        <span class="toc-cat">加密</span>
+        <span class="toc-title-text">现货 BTC ETF 的资金来源拆解:真增量还是仓位再平衡?</span>
+        <span class="toc-author">Aria Wen</span>
+        <span class="toc-readtime">7 min</span>
+        <span class="toc-page">P. 16</span>
+      </li>
+      <li class="toc-row">
+        <span class="toc-num">№ 05</span>
+        <span class="toc-cat">欧元区</span>
+        <span class="toc-title-text">欧元区核心服务通胀:工资-价格螺旋的"半截梯子"</span>
+        <span class="toc-author">Marie Sá</span>
+        <span class="toc-readtime">10 min</span>
+        <span class="toc-page">P. 20</span>
+      </li>
+      <li class="toc-row">
+        <span class="toc-num">№ 06</span>
+        <span class="toc-cat">利率</span>
+        <span class="toc-title-text">国债收益率曲线倒挂解除后,资产再定价的次序与时滞</span>
+        <span class="toc-author">林知衡</span>
+        <span class="toc-readtime">14 min</span>
+        <span class="toc-page">P. 24</span>
+      </li>
+    </ol>
+    <div class="toc-foot">
+      <span>滚动 7 天 · 共 23 篇通过四道审核闸口</span>
+      <span>↓ 继续向下阅读 · 或跳至 <a href="#authors" style="text-decoration:underline; text-underline-offset:3px;">签约作者</a></span>
+    </div>
+  </section>
+
+  <!-- ===================== § 1  MACRO ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">§ 01</span>
+      <span class="band-name">宏观</span>
+    </div>
+    <span class="band-r">本周 12 篇 · 完读率 47%</span>
+  </div>
+
+  <section class="macro">
+    <div class="macro-grid">
+      <article class="macro-feature">
+        <div class="img-block illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-fed-funds"/></svg>
+          <span class="corner-tag-r">FIG · 04</span>
+          <span class="corner-tag">.chart line · SOFR vs. dot plot</span>
+        </div>
+        <div class="eyebrow"><span>宏观</span><span class="dot"></span><span>特稿</span></div>
+        <h2 class="macro-headline">美联储路径定价:市场已跑在点阵图前面 35bp</h2>
+        <p class="macro-dek">SOFR 期货曲线 vs. 3 月点阵图,2026 年末隐含利率比 FOMC 中位数低 35bp;若 9 月维持暂停,市场或反向定价 25bp 反弹,期限溢价二阶导反转。</p>
+        <div class="hero-side-meta">林知衡 · 18 min · 9 charts · 2,107 ★</div>
+      </article>
+
+      <div class="macro-list">
+        <article class="macro-item">
+          <div class="macro-item-num">02</div>
+          <div class="macro-item-body">
+            <div class="eyebrow"><span>通胀</span></div>
+            <h3 class="macro-item-title">核心 PCE vs 核心 CPI:口径分歧的归因与 9 月窗口</h3>
+            <div class="macro-item-meta">林知衡 · 11 min · 894 ★</div>
+          </div>
+        </article>
+        <article class="macro-item">
+          <div class="macro-item-num">03</div>
+          <div class="macro-item-body">
+            <div class="eyebrow"><span>大宗商品</span></div>
+            <h3 class="macro-item-title">供给弹性与商品反通胀:站在 2026 年中视角再看一次铜</h3>
+            <div class="macro-item-meta">周愈 · 13 min · 721 ★</div>
+          </div>
+        </article>
+        <article class="macro-item">
+          <div class="macro-item-num">04</div>
+          <div class="macro-item-body">
+            <div class="eyebrow"><span>中国 · PMI</span></div>
+            <h3 class="macro-item-title">中国 4 月 PMI:出口订单与价格指数背离,内需修复滞后于外需</h3>
+            <div class="macro-item-meta">陆问渠 · 9 min · 612 ★</div>
+          </div>
+        </article>
+        <article class="macro-item">
+          <div class="macro-item-num">05</div>
+          <div class="macro-item-body">
+            <div class="eyebrow"><span>欧元区</span></div>
+            <h3 class="macro-item-title">欧元区核心服务通胀:工资-价格螺旋的"半截梯子"</h3>
+            <div class="macro-item-meta">Marie Sá · 10 min · 437 ★</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== § 2  EDITOR'S PICKS ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">§ 02</span>
+      <span class="band-name">编辑精选</span>
+    </div>
+    <span class="band-r">每周一三五更新 · 双人复核</span>
+  </div>
+
+  <section class="picks">
+    <div class="picks-grid">
+      <article class="pick-item">
+        <div class="pick-thumb illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-ltcm-books"/></svg>
+        </div>
+        <div class="pick-body">
+          <div class="eyebrow"><span>风险 · 重读</span></div>
+          <h3 class="pick-title">为什么我们重读《长期资本》:风险预算的迭代与失败的家学</h3>
+          <p class="pick-snippet">从 LTCM 的 leverage table 到 2026 年的 vol-targeting 策略,"风险即可逆"的隐喻经过两次定量危机才被收敛进合规语言。</p>
+          <div class="hero-side-meta">陈砚秋 · 19 min · 1,089 ★</div>
+        </div>
+      </article>
+      <article class="pick-item">
+        <div class="pick-thumb illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-mining-ingot"/></svg>
+        </div>
+        <div class="pick-body">
+          <div class="eyebrow"><span>大宗商品</span></div>
+          <h3 class="pick-title">稀有金属投资框架:从地理风险到回收链的三层穿透</h3>
+          <p class="pick-snippet">把 Cu / Co / Li / Nd 拆解到矿权-冶炼-回收三层,2026 年回收链已能覆盖增量 12%,这是定价分位的关键变量。</p>
+          <div class="hero-side-meta">周愈 · 16 min · 824 ★</div>
+        </div>
+      </article>
+      <article class="pick-item">
+        <div class="pick-thumb illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-pos-terminal"/></svg>
+        </div>
+        <div class="pick-body">
+          <div class="eyebrow"><span>金融科技</span></div>
+          <h3 class="pick-title">Stripe 估值 1,000 亿:支付基础设施进入下半场</h3>
+          <p class="pick-snippet">单位经济性已经稳定,真正决定二级市场打开的是 Treasury / Capital 这两条非交易性收入线的复合速度。</p>
+          <div class="hero-side-meta">叶之初 · 14 min · 968 ★</div>
+        </div>
+      </article>
+      <article class="pick-item">
+        <div class="pick-thumb illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-gpu-chip"/></svg>
+        </div>
+        <div class="pick-body">
+          <div class="eyebrow"><span>AI · 成本曲线</span></div>
+          <h3 class="pick-title">AI 推理成本的拐点:从 Token 价格看产业杠杆与利润迁移</h3>
+          <p class="pick-snippet">推理单价 18 个月下降 11×,但应用层毛利率仅扩张 3pp;杠杆迁移到了客户侧的延迟和上下文窗口溢价。</p>
+          <div class="hero-side-meta">叶之初 · 13 min · 1,512 ★</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== § 3  MARKETS ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">§ 03</span>
+      <span class="band-name">市场</span>
+    </div>
+    <span class="band-r">行情联动 · 实时数据由用户工作台 dataset 提供</span>
+  </div>
+
+  <section class="markets">
+    <div class="markets-grid">
+      <article class="market-card">
+        <div class="market-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-trader-phone"/></svg>
+        </div>
+        <div class="eyebrow"><span>美股权益</span></div>
+        <h3 class="market-title">纳指最新业绩季:超大盘股的现金流分化在加深</h3>
+        <div class="market-meta">叶之初 · 10 min · 612 ★</div>
+      </article>
+      <article class="market-card">
+        <div class="market-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-yield-curve"/></svg>
+        </div>
+        <div class="eyebrow"><span>利率</span></div>
+        <h3 class="market-title">国债收益率曲线倒挂解除后,资产再定价的次序与时滞</h3>
+        <div class="market-meta">林知衡 · 14 min · 738 ★</div>
+      </article>
+      <article class="market-card">
+        <div class="market-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-btc-coin"/></svg>
+        </div>
+        <div class="eyebrow"><span>加密资产</span></div>
+        <h3 class="market-title">比特币 6 万美元支撑测试:现货 ETF 的资金流向分层</h3>
+        <div class="market-meta">Aria Wen · 9 min · 421 ★</div>
+      </article>
+      <article class="market-card">
+        <div class="market-img illus">
+          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-oil-rig"/></svg>
+        </div>
+        <div class="eyebrow"><span>能源</span></div>
+        <h3 class="market-title">原油 75–90 区间内的期权策略:卖跨与日历价差的胜率比较</h3>
+        <div class="market-meta">苏明哲 · 11 min · 366 ★</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== § 4  MOST READ ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">§ 04</span>
+      <span class="band-name">热度榜</span>
+    </div>
+    <span class="band-r">滚动 7 天 · 加权 = ★×1 + 收藏×2 + 完读×1.5</span>
+  </div>
+
+  <section class="most-read">
+    <div class="most-read-grid">
+      <div class="most-read-col">
+        <article class="mr-item">
+          <span class="mr-rank">01</span>
+          <div class="mr-body"><h3 class="mr-title">美国 4 月 CPI 解构:核心服务粘性与租金传导</h3><div class="mr-meta">林知衡 · 宏观</div></div>
+          <span class="mr-saves">★ 1,247</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">02</span>
+          <div class="mr-body"><h3 class="mr-title">AI 推理成本的拐点:从 Token 价格看产业杠杆</h3><div class="mr-meta">叶之初 · 科技</div></div>
+          <span class="mr-saves">★ 1,512</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">03</span>
+          <div class="mr-body"><h3 class="mr-title">为什么我们重读《长期资本》:风险预算的迭代</h3><div class="mr-meta">陈砚秋 · 风险</div></div>
+          <span class="mr-saves">★ 1,089</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">04</span>
+          <div class="mr-body"><h3 class="mr-title">Stripe 估值 1,000 亿:支付基础设施进入下半场</h3><div class="mr-meta">叶之初 · 金融科技</div></div>
+          <span class="mr-saves">★ 968</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">05</span>
+          <div class="mr-body"><h3 class="mr-title">9 月 FOMC 会前的期权定价:押注非对称风险</h3><div class="mr-meta">苏明哲 · 衍生品</div></div>
+          <span class="mr-saves">★ 902</span>
+        </article>
+      </div>
+      <div class="most-read-col">
+        <article class="mr-item">
+          <span class="mr-rank">06</span>
+          <div class="mr-body"><h3 class="mr-title">稀有金属投资框架:从地理风险到回收链</h3><div class="mr-meta">周愈 · 大宗商品</div></div>
+          <span class="mr-saves">★ 824</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">07</span>
+          <div class="mr-body"><h3 class="mr-title">国债收益率曲线倒挂解除后的资产再定价</h3><div class="mr-meta">林知衡 · 利率</div></div>
+          <span class="mr-saves">★ 738</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">08</span>
+          <div class="mr-body"><h3 class="mr-title">日央行 7 月加息路径回测:汇率传导与隐含通胀</h3><div class="mr-meta">高原裕 · 日本</div></div>
+          <span class="mr-saves">★ 689</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">09</span>
+          <div class="mr-body"><h3 class="mr-title">黄金 4,200 关口:实际利率与央行配置的两条曲线</h3><div class="mr-meta">周愈 · Gold</div></div>
+          <span class="mr-saves">★ 488</span>
+        </article>
+        <article class="mr-item">
+          <span class="mr-rank">10</span>
+          <div class="mr-body"><h3 class="mr-title">上证 50ETF 沽购比创年内新高:信号还是噪音?</h3><div class="mr-meta">陆问渠 · 中国</div></div>
+          <span class="mr-saves">★ 412</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== § 5  ANALYST WALL ===================== -->
+  <div class="cat-band" id="authors">
+    <div class="band-l">
+      <span class="band-num">§ 05</span>
+      <span class="band-name">签约作者 · Meet our analysts</span>
+    </div>
+    <span class="band-r">本月新增 4 位 · 当前共 23 位</span>
+  </div>
+
+  <section class="authors">
+    <div class="authors-intro">
+      <h3 class="authors-intro-l">研报背后是真人 — 23 位经过双人复核的署名作者,各自负责一条窄而深的赛道。</h3>
+      <p class="authors-intro-r">
+        Maxwell 不做匿名群发,也不做"AI 自动生成内容"。每位签约作者公开自己的方法论、数据偏差和过往误判;读者直接订阅作者本人,而不是订阅平台。
+        <br><br>
+        <span class="pull">Phase 1 · 30 位邀请名额已发出 · 正在持续扩列</span>
+      </p>
+    </div>
+
+    <div class="authors-grid">
+      <article class="author-card">
+        <div class="author-portrait">
+          <svg viewBox="0 0 100 100"><use href="#port-lin"/></svg>
+        </div>
+        <div class="author-cat">宏观 · 通胀与利率</div>
+        <div class="author-name-row">
+          <h3 class="author-name">林知衡</h3>
+        </div>
+        <p class="author-tagline">前 Fed-watcher · 拆 BLS 报告八年</p>
+        <p class="author-quote">"通胀回到 2% 是一段下坡路,但下坡有几段不同的坡度。"</p>
+        <div class="author-stats">
+          <div><span class="num">12</span>精选</div>
+          <div><span class="num">5,108</span>★</div>
+          <div><span class="num">52%</span>完读</div>
+        </div>
+      </article>
+
+      <article class="author-card">
+        <div class="author-portrait">
+          <svg viewBox="0 0 100 100"><use href="#port-su"/></svg>
+        </div>
+        <div class="author-cat">衍生品 · 期权与波动率</div>
+        <div class="author-name-row">
+          <h3 class="author-name">苏明哲</h3>
+        </div>
+        <p class="author-tagline">十年期权交易员 · 跨市场套利</p>
+        <p class="author-quote">"波动率定价从来不是预测,是交易非对称的风险溢价。"</p>
+        <div class="author-stats">
+          <div><span class="num">8</span>精选</div>
+          <div><span class="num">3,221</span>★</div>
+          <div><span class="num">48%</span>完读</div>
+        </div>
+      </article>
+
+      <article class="author-card">
+        <div class="author-portrait">
+          <svg viewBox="0 0 100 100"><use href="#port-zhou"/></svg>
+        </div>
+        <div class="author-cat">大宗商品 · 黄金与稀有金属</div>
+        <div class="author-name-row">
+          <h3 class="author-name">周 愈</h3>
+        </div>
+        <p class="author-tagline">前 LME 研究员 · 实地访矿三十处</p>
+        <p class="author-quote">"产业链分层比基本面更早出现拐点 — 它通常领先两个季度。"</p>
+        <div class="author-stats">
+          <div><span class="num">6</span>精选</div>
+          <div><span class="num">2,455</span>★</div>
+          <div><span class="num">44%</span>完读</div>
+        </div>
+      </article>
+
+      <article class="author-card">
+        <div class="author-portrait">
+          <svg viewBox="0 0 100 100"><use href="#port-aria"/></svg>
+        </div>
+        <div class="author-cat">加密 · DeFi 与 ETF 资金流</div>
+        <div class="author-name-row">
+          <h3 class="author-name">Aria Wen</h3>
+        </div>
+        <p class="author-tagline">前合规科技 · 现货 ETF 资金流追踪</p>
+        <p class="author-quote">"链上数据是开放的,但读它的人远少于交易它的人。"</p>
+        <div class="author-stats">
+          <div><span class="num">9</span>精选</div>
+          <div><span class="num">2,938</span>★</div>
+          <div><span class="num">41%</span>完读</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== SUBSCRIBE ===================== -->
+  <section class="subscribe">
+    <div class="subscribe-grid">
+      <div class="subscribe-l">
+        <div class="eyebrow"><span>每周编辑信</span><span class="dot"></span><span>逢周一发出</span></div>
+        <h2 class="subscribe-headline">每周一封编辑信:<br>10 篇精选 + 1 张图带走一周市场</h2>
+        <p class="subscribe-dek">由编辑部双人复核,只发邮件,不卖你 SaaS。订阅是免费的,credit 反哺签约作者。</p>
+      </div>
+      <form class="subscribe-form" onsubmit="event.preventDefault();">
+        <div class="subscribe-row">
+          <input class="subscribe-input" type="email" placeholder="your@email.com">
+          <button class="subscribe-btn" type="submit">订阅 →</button>
+        </div>
+        <div class="subscribe-foot">No spam · 一键退订 · 已有 2,847 位读者</div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="brand-glyph" style="width:18px;height:18px;"></div>
+        <div class="footer-brand-name">Analyst</div>
+      </div>
+      <p class="footer-tag">由社区共建、编辑策展的研报平台。 用 agent 写、用同行评、被编辑挑。</p>
+    </div>
+    <div class="footer-col">
+      <h4>Read</h4>
+      <ul><li><a href="#">最新研报</a></li><li><a href="#">编辑精选</a></li><li><a href="#">热度榜</a></li><li><a href="#">分类目录</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Create</h4>
+      <ul><li><a href="workstation.html">工作台</a></li><li><a href="#">数据集</a></li><li><a href="#">图表词汇表</a></li><li><a href="#">投稿须知</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul><li><a href="#">编辑部</a></li><li><a href="#">签约计划</a></li><li><a href="#">审核机制</a></li><li><a href="#">透明度报告</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Subscribe</h4>
+      <ul><li><a href="#">每周编辑信</a></li><li><a href="#">RSS · Atom</a></li><li><a href="#">微信公众号</a></li><li><a href="#">研报 PDF 月度合订</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Analyst · 沪 ICP 备 2026-XXXX 号</span>
+    <span>Built on Source Serif 4 · Inter · Noto Serif SC · JetBrains Mono</span>
+  </div>
+</footer>
+
+<script>
+  try {
+    const saved = localStorage.getItem('mx_theme');
+    if (saved) document.body.setAttribute('data-theme', saved);
+  } catch (e) {}
+</script>
+
+</body>
+</html>
