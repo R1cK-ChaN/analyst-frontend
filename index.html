@@ -400,31 +400,129 @@ img { max-width: 100%; display: block; }
 }
 .macro-item-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
 
-/* ===== EDITORS PICKS ===== */
-.picks { padding: 30px 0 40px; border-top: 2px solid var(--border-rule); }
-.picks-grid {
+/* ===== DAILY BRIEF (rhythm: each weekday) ===== */
+.daily-brief { padding: 24px 0 36px; }
+.brief-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 48px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
-.pick-item {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 18px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--border-soft);
-  align-items: start;
+.brief-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 16px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  border-top: 2px solid var(--border-rule);
 }
-.pick-item:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 0; }
-.pick-thumb { width: 130px; aspect-ratio: 1; }
-.pick-body { display: flex; flex-direction: column; gap: 8px; }
-.pick-title {
+[data-theme="magazine"] .brief-card { border-top-color: var(--text-body); }
+.brief-cat {
+  font-family: var(--font-ui);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.brief-title {
   font-family: var(--font-body);
-  font-size: 20px; font-weight: 600;
-  line-height: 1.22; letter-spacing: -0.005em;
+  font-size: 16px; font-weight: 600;
+  line-height: 1.28; letter-spacing: -0.005em;
   margin: 0;
 }
-.pick-snippet { font-family: var(--font-body); font-size: 14px; color: var(--text-muted); line-height: 1.45; margin: 0; }
+.brief-meta { font-family: var(--font-ui); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; margin-top: auto; }
+
+/* ===== WEEKLY IDEAS (rhythm: every Monday) — 2 large cards ===== */
+.weekly { padding: 30px 0 40px; border-top: 2px solid var(--border-rule); }
+.weekly-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+.weekly-card { display: flex; flex-direction: column; gap: 14px; }
+.weekly-img { aspect-ratio: 4/3; }
+.weekly-title {
+  font-family: var(--font-body);
+  font-size: 26px; font-weight: 700;
+  line-height: 1.18; letter-spacing: -0.01em;
+  margin: 0;
+}
+.weekly-card.is-secondary .weekly-title { font-size: 22px; }
+.weekly-snippet { font-family: var(--font-body); font-size: 15px; color: var(--text-muted); line-height: 1.5; margin: 0; max-width: 50ch; }
+.weekly-meta { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+/* ===== MONTHLY DOSSIER (rhythm: monthly flagship cover) ===== */
+.dossier { padding: 36px 0 48px; border-top: 2px solid var(--border-rule); }
+.dossier-grid {
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  gap: 56px;
+  align-items: stretch;
+}
+.dossier-img { aspect-ratio: 4/5; }
+.dossier-body { display: flex; flex-direction: column; gap: 14px; }
+.dossier-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-primary);
+}
+.dossier-title {
+  font-family: var(--font-body);
+  font-size: 44px; font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.02em;
+  margin: 0;
+}
+.dossier-sub {
+  font-family: var(--font-body);
+  font-size: 22px; font-weight: 400; font-style: italic;
+  line-height: 1.3; color: var(--text-muted);
+  margin: 0;
+}
+.dossier-dek {
+  font-family: var(--font-body);
+  font-size: 16px; line-height: 1.6;
+  color: var(--text-body);
+  margin: 6px 0 0; max-width: 56ch;
+}
+.dossier-author {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 18px; margin-top: 6px;
+  border-top: 1px solid var(--border-soft);
+}
+.dossier-author-portrait {
+  width: 44px; height: 44px;
+  background: var(--bg-illus);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.dossier-author-portrait svg { width: 78%; height: 78%; }
+.dossier-author-name {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.dossier-author-tag { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; }
+.dossier-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--text-muted);
+}
+.dossier-meta .pipe { color: var(--text-faint); }
+.dossier-cta { display: flex; gap: 12px; margin-top: 6px; }
+.dossier-cta-primary {
+  background: var(--action); color: var(--action-text);
+  border: 1px solid var(--action);
+  padding: 12px 20px;
+  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+}
+.dossier-cta-ghost {
+  background: transparent; color: var(--text-body);
+  border: 1px solid var(--border-rule);
+  padding: 12px 20px;
+  font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer;
+}
 
 /* ===== MARKETS ===== */
 .markets { padding: 0 0 40px; }
@@ -622,12 +720,24 @@ img { max-width: 100%; display: block; }
   .toc-row { grid-template-columns: 40px 80px 1fr 50px; gap: 12px; }
   .toc-row .toc-author, .toc-row .toc-readtime { display: none; }
   .macro-grid { grid-template-columns: 1fr; }
-  .picks-grid { grid-template-columns: 1fr; }
+  .weekly-grid { grid-template-columns: 1fr; }
   .markets-grid { grid-template-columns: repeat(2, 1fr); }
   .authors-grid { grid-template-columns: repeat(2, 1fr); }
   .authors-intro { grid-template-columns: 1fr; gap: 12px; }
   .subscribe-grid { grid-template-columns: 1fr; gap: 24px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .dossier-grid { grid-template-columns: 1fr; gap: 28px; }
+  .dossier-img { aspect-ratio: 16/10; }
+  .dossier-title { font-size: 36px; }
+  .brief-row {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 0 -32px;
+    padding: 0 32px 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .brief-card { flex: 0 0 240px; scroll-snap-align: start; }
 }
 @media (max-width: 600px) {
   .hero-headline { font-size: 36px; }
@@ -635,6 +745,8 @@ img { max-width: 100%; display: block; }
   .markets-grid { grid-template-columns: 1fr; }
   .authors-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
+  .dossier-title { font-size: 30px; }
+  .dossier-sub { font-size: 18px; }
 }
 </style>
 </head>
@@ -1026,7 +1138,7 @@ img { max-width: 100%; display: block; }
         <span class="corner-tag-r">FIG · 01</span>
         <span class="corner-tag">illus · CPI desk, after BLS press</span>
       </div>
-      <div class="eyebrow"><span>头条</span><span class="dot"></span><span>宏观</span><span class="dot"></span><span>编辑精选</span></div>
+      <div class="eyebrow"><span>头条</span><span class="dot"></span><span>宏观</span><span class="dot"></span><span>本周精选</span></div>
       <h1 class="hero-headline">美国 4 月 CPI 解构:核心服务粘性<br>与租金传导的最后一里</h1>
       <p class="hero-dek">把核心服务通胀拆成 OER + 保险 + 其余三段后,7 月以前回到 4% 以内仍是基线;OER 对 Zillow 滞后 11–13 个月,机动车保险则在 9 月之后才进入低基数,这两条决定 9 月 FOMC 的边际选项。</p>
       <div class="hero-byline">
@@ -1058,6 +1170,45 @@ img { max-width: 100%; display: block; }
         <div class="hero-side-meta">周愈 · 11 min</div>
       </div>
     </aside>
+  </section>
+
+  <!-- ===================== DAILY BRIEF (rhythm: each weekday) ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">TODAY</span>
+      <span class="band-name">今日 Brief</span>
+    </div>
+    <span class="band-r">Daily Brief · 每个工作日 · 5 篇</span>
+  </div>
+
+  <section class="daily-brief">
+    <div class="brief-row">
+      <article class="brief-card">
+        <div class="brief-cat">通胀</div>
+        <h3 class="brief-title">4 月 PCE 前瞻:核心 PCE 与核心 CPI 口径分歧的最后一段</h3>
+        <div class="brief-meta">林知衡 · 4 min</div>
+      </article>
+      <article class="brief-card">
+        <div class="brief-cat">利率</div>
+        <h3 class="brief-title">2 年期国债拍卖尾差扩大:海外需求是否在边际退出?</h3>
+        <div class="brief-meta">林知衡 · 5 min</div>
+      </article>
+      <article class="brief-card">
+        <div class="brief-cat">中国</div>
+        <h3 class="brief-title">4 月社融:新增信贷弱于预期,企业中长贷连续第三月走低</h3>
+        <div class="brief-meta">陆问渠 · 6 min</div>
+      </article>
+      <article class="brief-card">
+        <div class="brief-cat">加密</div>
+        <h3 class="brief-title">现货 BTC ETF 单日净流入 4.2 亿美元:Fidelity 与 BlackRock 之外的二线追上来</h3>
+        <div class="brief-meta">Aria Wen · 4 min</div>
+      </article>
+      <article class="brief-card">
+        <div class="brief-cat">大宗商品</div>
+        <h3 class="brief-title">伦铜库存连降 6 周创年内新低:新能源补库节奏已启动</h3>
+        <div class="brief-meta">周愈 · 5 min</div>
+      </article>
+    </div>
   </section>
 </main>
 
@@ -1185,60 +1336,37 @@ img { max-width: 100%; display: block; }
     </div>
   </section>
 
-  <!-- ===================== § 2  EDITOR'S PICKS ===================== -->
+  <!-- ===================== § 2  WEEKLY IDEAS ===================== -->
   <div class="cat-band">
     <div class="band-l">
       <span class="band-num">§ 02</span>
-      <span class="band-name">编辑精选</span>
+      <span class="band-name">本周精选 · Weekly Ideas</span>
     </div>
-    <span class="band-r">每周一三五更新 · 双人复核</span>
+    <span class="band-r">每周一更新 · 7 天聚拢 · 双人复核</span>
   </div>
 
-  <section class="picks">
-    <div class="picks-grid">
-      <article class="pick-item">
-        <div class="pick-thumb illus">
+  <section class="weekly">
+    <div class="weekly-grid">
+      <article class="weekly-card">
+        <div class="weekly-img illus">
           <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-ltcm-books"/></svg>
+          <span class="corner-tag-r">FIG · 05</span>
+          <span class="corner-tag">illus · LTCM, after re-reading</span>
         </div>
-        <div class="pick-body">
-          <div class="eyebrow"><span>风险 · 重读</span></div>
-          <h3 class="pick-title">为什么我们重读《长期资本》:风险预算的迭代与失败的家学</h3>
-          <p class="pick-snippet">从 LTCM 的 leverage table 到 2026 年的 vol-targeting 策略,"风险即可逆"的隐喻经过两次定量危机才被收敛进合规语言。</p>
-          <div class="hero-side-meta">陈砚秋 · 19 min</div>
-        </div>
+        <div class="eyebrow"><span>风险 · 重读</span><span class="dot"></span><span>本周头条</span></div>
+        <h3 class="weekly-title">为什么我们重读《长期资本》:风险预算的迭代与失败的家学</h3>
+        <p class="weekly-snippet">从 LTCM 的 leverage table 到 2026 年的 vol-targeting 策略,"风险即可逆"的隐喻经过两次定量危机才被收敛进合规语言。本期把 1998 vs 2024 的两组对账放在一起,看资金面、相关性、流动性预算各自走出了什么样的路径。</p>
+        <div class="weekly-meta">陈砚秋 · 19 min · 6 charts</div>
       </article>
-      <article class="pick-item">
-        <div class="pick-thumb illus">
-          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-mining-ingot"/></svg>
-        </div>
-        <div class="pick-body">
-          <div class="eyebrow"><span>大宗商品</span></div>
-          <h3 class="pick-title">稀有金属投资框架:从地理风险到回收链的三层穿透</h3>
-          <p class="pick-snippet">把 Cu / Co / Li / Nd 拆解到矿权-冶炼-回收三层,2026 年回收链已能覆盖增量 12%,这是定价分位的关键变量。</p>
-          <div class="hero-side-meta">周愈 · 16 min</div>
-        </div>
-      </article>
-      <article class="pick-item">
-        <div class="pick-thumb illus">
-          <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-pos-terminal"/></svg>
-        </div>
-        <div class="pick-body">
-          <div class="eyebrow"><span>金融科技</span></div>
-          <h3 class="pick-title">Stripe 估值 1,000 亿:支付基础设施进入下半场</h3>
-          <p class="pick-snippet">单位经济性已经稳定,真正决定二级市场打开的是 Treasury / Capital 这两条非交易性收入线的复合速度。</p>
-          <div class="hero-side-meta">叶之初 · 14 min</div>
-        </div>
-      </article>
-      <article class="pick-item">
-        <div class="pick-thumb illus">
+      <article class="weekly-card is-secondary">
+        <div class="weekly-img illus">
           <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-gpu-chip"/></svg>
+          <span class="corner-tag-r">FIG · 06</span>
         </div>
-        <div class="pick-body">
-          <div class="eyebrow"><span>AI · 成本曲线</span></div>
-          <h3 class="pick-title">AI 推理成本的拐点:从 Token 价格看产业杠杆与利润迁移</h3>
-          <p class="pick-snippet">推理单价 18 个月下降 11×,但应用层毛利率仅扩张 3pp;杠杆迁移到了客户侧的延迟和上下文窗口溢价。</p>
-          <div class="hero-side-meta">叶之初 · 13 min</div>
-        </div>
+        <div class="eyebrow"><span>AI · 成本曲线</span></div>
+        <h3 class="weekly-title">AI 推理成本的拐点:从 Token 价格看产业杠杆与利润迁移</h3>
+        <p class="weekly-snippet">推理单价 18 个月下降 11×,但应用层毛利率仅扩张 3pp;杠杆迁移到了客户侧的延迟与上下文窗口溢价。</p>
+        <div class="weekly-meta">叶之初 · 13 min · 4 charts</div>
       </article>
     </div>
   </section>
@@ -1379,6 +1507,49 @@ img { max-width: 100%; display: block; }
     </div>
   </section>
 
+  <!-- ===================== § 5  MONTHLY DOSSIER ===================== -->
+  <div class="cat-band">
+    <div class="band-l">
+      <span class="band-num">§ 05</span>
+      <span class="band-name">本月深度 · Monthly Dossier</span>
+    </div>
+    <span class="band-r">每月初发刊 · MAY 2026 · 单篇旗舰</span>
+  </div>
+
+  <section class="dossier">
+    <div class="dossier-grid">
+      <div class="dossier-img illus">
+        <svg class="line-art" viewBox="0 0 240 180"><use href="#illus-mining-ingot"/></svg>
+        <span class="corner-tag-r">COVER · MAY 26</span>
+        <span class="corner-tag">illus · rare metals, mine to recycler</span>
+      </div>
+      <div class="dossier-body">
+        <div class="dossier-eyebrow">封面专题 · COVER STORY · 本月深度</div>
+        <h2 class="dossier-title">稀有金属:三层穿透与一份四国账</h2>
+        <p class="dossier-sub">把 Cu / Co / Li / Nd 拆到矿权、冶炼、回收三层,看 2026 年的回收链如何把价格分位重新写一次。</p>
+        <p class="dossier-dek">这是 Analyst 五月的封面专题:一份跨四国、12 个月跟踪的稀有金属产业账。文章把铜、钴、锂、稀土四条链分别拆到矿权、冶炼、回收三层,并把每一层的地缘风险、议价权、再投资回报折算成可比口径。我们的判断是:回收链已经覆盖增量 12% 并仍在加速,这把传统"矿权稀缺"的定价框架推到了边缘——下一段定价会更看再生加工的边际成本,而不是地下储量。</p>
+        <div class="dossier-author">
+          <div class="dossier-author-portrait"><svg viewBox="0 0 100 100"><use href="#port-zhou"/></svg></div>
+          <div>
+            <div class="dossier-author-name">周 愈</div>
+            <div class="dossier-author-tag">前 LME 研究员 · 实地访矿三十处</div>
+          </div>
+        </div>
+        <div class="dossier-meta">
+          <span>30 min read</span>
+          <span class="pipe">·</span>
+          <span>12 charts · 4 tables</span>
+          <span class="pipe">·</span>
+          <span>含交互模型</span>
+        </div>
+        <div class="dossier-cta">
+          <a class="dossier-cta-primary" href="#">阅读全文 →</a>
+          <a class="dossier-cta-ghost" href="#">PDF · 38 页</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== SUBSCRIBE ===================== -->
   <section class="subscribe">
     <div class="subscribe-grid">
@@ -1410,7 +1581,7 @@ img { max-width: 100%; display: block; }
     </div>
     <div class="footer-col">
       <h4>Read</h4>
-      <ul><li><a href="#">最新研报</a></li><li><a href="#">编辑精选</a></li><li><a href="#">分类目录</a></li></ul>
+      <ul><li><a href="#">今日 Brief</a></li><li><a href="#">本周精选</a></li><li><a href="#">本月深度</a></li><li><a href="#">分类目录</a></li></ul>
     </div>
     <div class="footer-col">
       <h4>Create</h4>
