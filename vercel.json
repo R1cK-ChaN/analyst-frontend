@@ -1,4 +1,10 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "installCommand": "corepack enable && corepack prepare pnpm@10.33.0 --activate",
+  "buildCommand": "cd workstation-app && corepack pnpm install --frozen-lockfile && corepack pnpm build",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/workstation-spa/:path*", "destination": "/workstation-spa/index.html" }
+  ]
 }
